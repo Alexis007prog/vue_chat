@@ -10,7 +10,7 @@ import { useMessage, NMenu } from 'naive-ui'
 import type { MenuOption } from 'naive-ui'
 // import { defineProps } from 'vue';
 
-const message = useMessage();
+const message = useMessage();  
 
 function handleUpdateValue(key: string, item: MenuOption) {
     message.info('[onUpdate:value]: ' + JSON.stringify(key))
