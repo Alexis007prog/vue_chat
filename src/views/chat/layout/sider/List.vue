@@ -1,23 +1,28 @@
 <template>
     <div>
-        <NMenu :options="menuOptions" @update:value="handleUpdateValue" />
+        <!-- <NMenu :options="temp" @update:value="handleUpdateValue" /> -->
+        <n-tree :show-irrelevant-nodes="showIrrelevantNodes" :pattern="pattern" :data="temp" block-line :on-update:checked-keys="selectChange"/>
         <!-- {{ props.ids }} -->
     </div>
 </template>
   
 <script setup lang="ts">
-import { useMessage, NMenu } from 'naive-ui'
-import type { MenuOption } from 'naive-ui'
+import { watch, ref } from 'vue';
+// import { useMessage, NMenu } from 'naive-ui'
+import { NTree } from 'naive-ui';
+import type { TreeOption } from 'naive-ui'
+
 // import { defineProps } from 'vue';
 
-const message = useMessage();  
+const pattern = ref('');
+const showIrrelevantNodes = ref(false);
 
-function handleUpdateValue(key: string, item: MenuOption) {
-    message.info('[onUpdate:value]: ' + JSON.stringify(key))
-    message.info('[onUpdate:value]: ' + JSON.stringify(item))
-}
-
-let menuOptions: MenuOption[] = [
+// const message = useMessage();
+// function handleUpdateValue(key: string, item: MenuOption) {
+//     message.info('[onUpdate:value]: ' + JSON.stringify(key))
+//     message.info('[onUpdate:value]: ' + JSON.stringify(item))
+// }
+let menuOptions: TreeOption[] = [
     {
         label: '0',
         key: '0',
@@ -63,4 +68,40 @@ let menuOptions: MenuOption[] = [
         ]
     }
 ]
+
+
+let temp = ref([] as any[]);
+const props = defineProps(['ids']);
+
+// let result = null;
+function getTreeItem(data: any, key: any) {
+    data.map((item: any) => {
+        console.log(item.id);
+        if (item.key == key) {
+            temp.value.push(item);
+        } else {
+            if (item.children) {
+                getTreeItem(item.children, key);
+            }
+        }
+    });
+}
+watch(
+    () => [...props.ids],
+    (newValue, oldValue) => {
+        temp.value = [];
+        newValue.forEach((nItem: any, nIndex: number) => {
+            getTreeItem(menuOptions, nItem)
+        })
+        console.log("赋值完", temp.value);
+    },
+    {
+        immediate: true,
+        deep: true
+    }
+);
+
+const selectChange = function () {
+    console.log("选中菜单变了")
+}
 </script>

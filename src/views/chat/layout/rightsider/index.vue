@@ -6,7 +6,7 @@ import List from './List.vue'
 import Footer from './Footer.vue'
 import { useAppStore, useChatStore } from '@/store'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
-import { PromptStore, SvgIcon } from '@/components/common'
+import { PromptStoreRight, SvgIcon } from '@/components/common'
 import { t } from '@/locales'
 // import { reactive } from 'vue'
 
@@ -89,12 +89,12 @@ const menuSelect = function(data:any){
     :collapsed="collapsed"
     :collapsed-width="0"
     :width="260"
-    :show-trigger="isMobile ? false : 'arrow-circle'"
     collapse-mode="transform"
-    position="absolute"
+    position="static"
     bordered
     :style="getMobileClass"
     @update-collapsed="handleUpdateCollapsed"
+    :show-trigger="false"
   >
     <div class="flex flex-col h-full" :style="mobileSafeArea">
       <main class="flex flex-col flex-1 min-h-0">
@@ -120,8 +120,8 @@ const menuSelect = function(data:any){
       <Footer />
     </div>
   </NLayoutSider>
-  <template v-if="isMobile">
+  <!-- <template v-if="isMobile">
     <div v-show="!collapsed" class="fixed inset-0 z-40 w-full h-full bg-black/40" @click="handleUpdateCollapsed" />
-  </template>
-  <PromptStore v-model:visible="show" @menuSelect="menuSelect"/>
+  </template> -->
+  <PromptStoreRight v-model:visible="show" />
 </template>

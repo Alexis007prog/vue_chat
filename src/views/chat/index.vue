@@ -59,7 +59,7 @@ function handleSubmit() {
 async function onConversation() {
   let message = prompt.value
 
-  if (loading.value)    
+  if (loading.value)
     return
 
   if (!message || message.trim() === '')

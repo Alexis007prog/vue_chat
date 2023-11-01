@@ -71,8 +71,15 @@ const data: TreeOption[] = [
 const pattern = ref('');
 const showIrrelevantNodes = ref(false);
 
+let checkedMenu: boolean | never[]=[];
+
+function checkedChange(e:any) {
+    checkedMenu = e;
+}
+
 function confirmMenu() {
-    //提交参数
+    emit('update:visible', false);
+    emit("menuSelect",checkedMenu);
 }
 </script>
 
@@ -87,8 +94,8 @@ function confirmMenu() {
                 隐藏搜索无关的节点
             </template>
         </n-switch> -->
-        <n-tree :show-irrelevant-nodes="showIrrelevantNodes" :pattern="pattern" :data="data" block-line checkable />
-        <!-- :on-update:checked-keys="checkedChange"/> -->
+        <n-tree :show-irrelevant-nodes="showIrrelevantNodes" :pattern="pattern" :data="data" block-line checkable
+        :on-update:checked-keys="checkedChange"/>
         <n-button type="primary" style="margin-top: 80px;" @click="confirmMenu">确定</n-button>
     </NModal>
 </template>
