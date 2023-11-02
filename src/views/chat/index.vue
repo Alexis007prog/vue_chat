@@ -59,7 +59,7 @@ function handleSubmit() {
 async function onConversation() {
   let message = prompt.value
 
-  if (loading.value)    
+  if (loading.value)
     return
 
   if (!message || message.trim() === '')
@@ -243,6 +243,7 @@ async function onRegenerate(index: number) {
         signal: controller.signal,
         onDownloadProgress: ({ event }) => {
           const xhr = event.target
+					console.log(xhr)
           const { responseText } = xhr
           // Always process the final line
           const lastIndex = responseText.lastIndexOf('\n', responseText.length - 2)
