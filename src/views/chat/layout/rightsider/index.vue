@@ -117,7 +117,7 @@ const menuSelect = function(data:any){
 <!--          </NButton>-->
 <!--        </div>-->
       </main>
-      <Footer />
+<!--      <Footer />-->
     </div>
   </NLayoutSider>
   <!-- <template v-if="isMobile">
