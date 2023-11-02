@@ -106,16 +106,16 @@ const menuSelect = function(data:any){
         <div class="flex-1 min-h-0 pb-4 overflow-hidden">
           <List :ids="ids"/>
         </div>
-        <div class="flex items-center p-4 space-x-4">
-          <div class="flex-1">
-            <NButton block @click="show = true">
-              {{ $t('store.siderButton') }}
-            </NButton>
-          </div>
-          <NButton @click="handleClearAll">
-            <SvgIcon icon="ri:close-circle-line" />
-          </NButton>
-        </div>
+<!--        <div class="flex items-center p-4 space-x-4">-->
+<!--          <div class="flex-1">-->
+<!--            <NButton block @click="show = true">-->
+<!--              {{ $t('store.siderButton') }}-->
+<!--            </NButton>-->
+<!--          </div>-->
+<!--          <NButton @click="handleClearAll">-->
+<!--            <SvgIcon icon="ri:close-circle-line" />-->
+<!--          </NButton>-->
+<!--        </div>-->
       </main>
       <Footer />
     </div>

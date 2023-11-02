@@ -98,11 +98,11 @@ const menuSelect = function(data:any){
   >
     <div class="flex flex-col h-full" :style="mobileSafeArea">
       <main class="flex flex-col flex-1 min-h-0">
-        <div class="p-4">
-          <NButton dashed block @click="handleAdd">
-            {{ $t('chat.newChatButton') }}
-          </NButton>
-        </div>
+<!--        <div class="p-4">-->
+<!--          <NButton dashed block @click="handleAdd">-->
+<!--            {{ $t('chat.newChatButton') }}-->
+<!--          </NButton>-->
+<!--        </div>-->
         <div class="flex-1 min-h-0 pb-4 overflow-hidden">
           <List :ids="ids"/>
         </div>
