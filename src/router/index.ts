@@ -36,6 +36,12 @@ const routes: RouteRecordRaw[] = [
     name: 'notFound',
     redirect: '/404',
   },
+
+  {
+    path: '/treeTable',
+    name: 'treeTable',
+    component: () => import('@/views/chat/layout/treeTable/Table.vue'),
+  },
 ]
 
 export const router = createRouter({
