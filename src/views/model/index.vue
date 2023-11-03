@@ -6,6 +6,7 @@ import { del, lists, update, save, findById } from '@/api/model'
 const dialogVisible = ref(false)
 
 const tableData = ref([])
+const parents = ref([])
 
 onMounted(()=> {
     getList()
@@ -55,12 +56,19 @@ const editeRow = (id: String) => {
         ruleForm.name = data.name
         ruleForm.id = data.id
         ruleForm.indexId = data.indexId
+        parents.value = tableData.value
     })
 }
 
 const resetForm = (formEl: FormInstance | undefined) => {
   if (!formEl)
     return
+
+    ruleForm.textPice = ""
+        ruleForm.name = ""
+        ruleForm.id = ""
+        ruleForm.indexId = ""
+        parents.value = []
   formEl.resetFields()
 }
 
