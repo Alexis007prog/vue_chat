@@ -56,7 +56,7 @@ const editeRow = (id: String) => {
         ruleForm.name = data.name
         ruleForm.id = data.id
         ruleForm.indexId = data.indexId
-        parents.value = tableData.value
+        parents.value = data.parents
     })
 }
 
@@ -68,7 +68,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
         ruleForm.name = ""
         ruleForm.id = ""
         ruleForm.indexId = ""
-        parents.value = []
+        parents.value = tableData.value
   formEl.resetFields()
 }
 
