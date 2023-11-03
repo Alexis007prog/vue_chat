@@ -47,7 +47,7 @@ export function fetchChatAPIProcess<T = any>(
   let data: Record<string, any> = {
     prompt: params.prompt,
     options: params.options,
-    keyword_id: params.promptId,
+    keywordId: params.promptId,
     ids: ids,
   }
 

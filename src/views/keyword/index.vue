@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { reactive, ref, onMounted } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
+import { ElMessage } from 'element-plus'
 import { del, lists, save, update, findById } from '@/api/keyword'
 const dialogVisible = ref(false)
 
@@ -68,7 +69,10 @@ const submitForm = (formEl: FormInstance | undefined) => {
       api.then(res=>{
         dialogVisible.value = false
         getList()
-
+        ElMessage({
+            message: res? '操作成功': '操作失败',
+            type: res? 'success':'error',
+        })
       })
     }
     else {
