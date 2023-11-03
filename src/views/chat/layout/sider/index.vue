@@ -3,6 +3,7 @@ import type { CSSProperties } from 'vue'
 import { computed, ref, watch } from 'vue'
 import { NButton, NLayoutSider, useDialog } from 'naive-ui'
 import List from './List.vue'
+import ListDom from './ListDom.vue'
 import Footer from './Footer.vue'
 import { useAppStore, useChatStore } from '@/store'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
@@ -85,6 +86,7 @@ const menuSelect = function(data:any){
 </script>
 
 <template>
+  
   <NLayoutSider
     :collapsed="collapsed"
     :collapsed-width="0"
@@ -97,6 +99,8 @@ const menuSelect = function(data:any){
     @update-collapsed="handleUpdateCollapsed"
   >
     <div class="flex flex-col h-full" :style="mobileSafeArea">
+      
+  <ListDom></ListDom>
       <main class="flex flex-col flex-1 min-h-0">
 <!--        <div class="p-4">-->
 <!--          <NButton dashed block @click="handleAdd">-->
@@ -104,7 +108,7 @@ const menuSelect = function(data:any){
 <!--          </NButton>-->
 <!--        </div>-->
         <div class="flex-1 min-h-0 pb-4 overflow-hidden">
-          <List :ids="ids"/>
+          <!-- <List :ids="ids"/> -->
         </div>
         <div class="flex items-center p-4 space-x-4">
           <div class="flex-1">

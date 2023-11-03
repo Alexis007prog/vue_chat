@@ -6,6 +6,16 @@ import { ChatLayout } from '@/views/chat/layout'
 
 const routes: RouteRecordRaw[] = [
   {
+    path: '/model',
+    name: 'Model',
+    component: () => import('@/views/model/index.vue'),
+  },
+  {
+    path: '/keyword',
+    name: 'Keyword',
+    component: () => import('@/views/keyword/index.vue'),
+  },
+  {
     path: '/',
     name: 'Root',
     component: ChatLayout,

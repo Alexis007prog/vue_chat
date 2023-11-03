@@ -3,7 +3,7 @@ import type { UserInfo, UserState } from './helper'
 import { defaultSetting, getLocalState, setLocalState } from './helper'
 
 export const useUserStore = defineStore('user-store', {
-  state: (): UserState => getLocalState(),
+  state: (): UserState => getLocalState(), 
   actions: {
     updateUserInfo(userInfo: Partial<UserInfo>) {
       this.userInfo = { ...this.userInfo, ...userInfo }
@@ -14,6 +14,8 @@ export const useUserStore = defineStore('user-store', {
       this.userInfo = { ...defaultSetting().userInfo }
       this.recordState()
     },
+
+    
 
     recordState() {
       setLocalState(this.$state)

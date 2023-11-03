@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 import type { Ref } from 'vue'
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { NAutoComplete, NButton, NInput, useDialog, useMessage } from 'naive-ui'
@@ -15,7 +15,7 @@ import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { useChatStore, usePromptStore } from '@/store'
 import { fetchChatAPIProcess } from '@/api'
 import { t } from '@/locales'
-
+import { useStore } from '@/store/storeP.ts'
 let controller = new AbortController()
 
 const openLongReply = import.meta.env.VITE_GLOB_OPEN_LONG_REPLY === 'true'
@@ -109,6 +109,8 @@ async function onConversation() {
       await fetchChatAPIProcess<Chat.ConversationResponse>({
         prompt: message,
         options,
+        checkArr: store.$state.checkArr,
+        promptId: store.$state.promptId,
         signal: controller.signal,
         onDownloadProgress: ({ event }) => {
           const xhr = event.target
@@ -239,11 +241,13 @@ async function onRegenerate(index: number) {
     const fetchChatAPIOnce = async () => {
       await fetchChatAPIProcess<Chat.ConversationResponse>({
         prompt: message,
+        checkArr: store.$state.checkArr,
+        promptId: store.$state.promptId,
         options,
         signal: controller.signal,
         onDownloadProgress: ({ event }) => {
           const xhr = event.target
-					console.log(xhr)
+          console.log(xhr)
           const { responseText } = xhr
           // Always process the final line
           const lastIndex = responseText.lastIndexOf('\n', responseText.length - 2)
@@ -462,6 +466,23 @@ onUnmounted(() => {
   if (loading.value)
     controller.abort()
 })
+// 侦听到的数据
+const store = useStore()
+
+const checkArr = ref([])
+
+watch(
+  () => store.$state.checkArr,
+  (newCheckArr, oldCheckArr) => {
+    // 处理 checkArrReturn 的变化
+    checkArr.value = newCheckArr
+  },
+  { deep: true },
+)
+function handleClose(val) {
+  checkArr.value.splice(checkArr.value.findIndex(item => item.id === val.id), 1)
+  store.TEXT_SYNCHR(checkArr.value)
+}
 </script>
 
 <template>
@@ -511,6 +532,19 @@ onUnmounted(() => {
         </div>
       </div>
     </main>
+    <div style="margin-left: 150px;">
+      <el-tag
+        v-for="tag in checkArr"
+        :key="tag"
+        style="margin-left:10px"
+        class="mx-1"
+        closable
+        :disable-transitions="false"
+        @close="handleClose(tag)"
+      >
+        {{ tag.name }}
+      </el-tag>
+    </div>
     <footer :class="footerClass">
       <div class="w-full max-w-screen-xl m-auto">
         <div class="flex items-center justify-between space-x-2">

@@ -80,5 +80,4 @@ export function post<T = any>(
     afterRequest,
   })
 }
-
 export default post
