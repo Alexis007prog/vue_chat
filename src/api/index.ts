@@ -39,12 +39,16 @@ export function fetchChatAPIProcess<T = any>(
 ) {
   const settingStore = useSettingStore()
   const authStore = useAuthStore()
-console.log(settingStore)
+
+  let ids = []
+  for (const key in params.checkArr) {
+    ids.push(params.checkArr[key].id)
+  }
   let data: Record<string, any> = {
     prompt: params.prompt,
     options: params.options,
     keyword_id: params.promptId,
-    ids: params.checkArr,
+    ids: ids,
   }
 
   if (authStore.isChatGPTAPI) {
