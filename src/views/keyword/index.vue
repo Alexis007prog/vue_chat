@@ -33,7 +33,7 @@ const ruleForm = reactive<RuleForm>({
   name: '',
   textAll: '',
   id: "",
-  level: 0
+  level: 1
 })
 
 const rules = reactive<FormRules<RuleForm>>({
@@ -62,7 +62,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
     ruleForm.textAll = ""
         ruleForm.name = ""
         ruleForm.id = ""
-        ruleForm.level = 0
+        ruleForm.level = 1
 
 }
 
