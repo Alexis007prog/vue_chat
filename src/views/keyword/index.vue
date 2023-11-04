@@ -24,7 +24,8 @@ const deleteRow = async (index: number, id: String) => {
 interface RuleForm {
   name: string
   textAll: String,
-  id: String
+  id: String,
+  level: number
 }
 
 const ruleFormRef = ref<FormInstance>()
@@ -32,6 +33,7 @@ const ruleForm = reactive<RuleForm>({
   name: '',
   textAll: '',
   id: "",
+  level: 0
 })
 
 const rules = reactive<FormRules<RuleForm>>({
@@ -40,6 +42,9 @@ const rules = reactive<FormRules<RuleForm>>({
   ],
   textAll: [
     { required: true, message: '请输入内容', trigger: 'change' },
+  ],
+  level: [
+    { required: true, message: '请输入序号', trigger: 'change' },
   ],
 })
 
@@ -122,6 +127,9 @@ const submitForm = (formEl: FormInstance | undefined) => {
       </el-form-item>
       <el-form-item label="内容" prop="textAll">
         <el-input v-model="ruleForm.textAll" rows="10" type="textarea" />
+      </el-form-item>
+      <el-form-item label="排序" prop="level">
+        <el-input v-model="ruleForm.level" type="number" />
       </el-form-item>
     </el-form>
     <template #footer>

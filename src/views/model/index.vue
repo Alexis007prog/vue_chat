@@ -26,7 +26,8 @@ interface RuleForm {
   name: string
   textPice: String,
   id: String,
-  indexId: String
+  indexId: String,
+  level: number
 }
 
 const ruleFormRef = ref<FormInstance>()
@@ -35,6 +36,7 @@ const ruleForm = reactive<RuleForm>({
   textPice: '',
   id: "",
   indexId: "",
+  level: 0
 })
 
 const rules = reactive<FormRules<RuleForm>>({
@@ -160,6 +162,9 @@ const submitForm = (formEl: FormInstance | undefined) => {
       </el-form-item>
       <el-form-item label="内容" prop="textPice">
         <el-input v-model="ruleForm.textPice" rows="10" type="textarea" />
+      </el-form-item>
+      <el-form-item label="排序" prop="level">
+        <el-input v-model="ruleForm.level" type="number" />
       </el-form-item>
     </el-form>
     <template #footer>
