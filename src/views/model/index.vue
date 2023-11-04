@@ -46,6 +46,9 @@ const rules = reactive<FormRules<RuleForm>>({
   textPice: [
     { required: true, message: '请输入内容', trigger: 'change' },
   ],
+  level: [
+    { required: true, message: '请输入序号', trigger: 'change' },
+  ],
 })
 
 const editeRow = (id: String) => {
@@ -70,6 +73,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
         ruleForm.name = ""
         ruleForm.id = ""
         ruleForm.indexId = ""
+        ruleForm.level = 0
         console.log(123123)
         editLists().then(res=>{
           parents.value = res.data

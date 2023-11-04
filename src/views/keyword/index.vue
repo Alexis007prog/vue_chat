@@ -62,6 +62,8 @@ const resetForm = (formEl: FormInstance | undefined) => {
     ruleForm.textAll = ""
         ruleForm.name = ""
         ruleForm.id = ""
+        ruleForm.level = 0
+
 }
 
 const submitForm = (formEl: FormInstance | undefined) => {
