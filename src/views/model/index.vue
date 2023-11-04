@@ -139,7 +139,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
     v-if="dialogVisible"
     v-model="dialogVisible"
     title="编辑"
-    width="30%"
+    width="60%"
   >
     <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules" label-width="70px">
       <el-form-item label="上级模型">
@@ -157,7 +157,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
         <el-input v-model="ruleForm.name" />
       </el-form-item>
       <el-form-item label="内容" prop="textPice">
-        <el-input v-model="ruleForm.textPice" type="textarea" />
+        <el-input v-model="ruleForm.textPice" rows="10" type="textarea" />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -170,3 +170,8 @@ const submitForm = (formEl: FormInstance | undefined) => {
     </template>
   </el-dialog>
 </template>
+<style scoped>
+.el-cascader{
+  width: 100% !important;
+}
+</style>
