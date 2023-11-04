@@ -110,6 +110,7 @@ async function onConversation() {
         prompt: message,
         options,
         checkArr: store.$state.checkArr,
+        model: store.$state.model,
         promptId: store.$state.promptId,
         signal: controller.signal,
         onDownloadProgress: ({ event }) => {
@@ -241,8 +242,9 @@ async function onRegenerate(index: number) {
     const fetchChatAPIOnce = async () => {
       await fetchChatAPIProcess<Chat.ConversationResponse>({
         prompt: message,
-        checkArr: store.$state.checkArr,
         promptId: store.$state.promptId,
+        checkArr: store.$state.checkArr,
+        model: store.$state.model,
         options,
         signal: controller.signal,
         onDownloadProgress: ({ event }) => {

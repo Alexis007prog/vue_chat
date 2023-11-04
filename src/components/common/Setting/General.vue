@@ -8,9 +8,11 @@ import type { UserInfo } from '@/store/modules/user/helper'
 import { getCurrentDate } from '@/utils/functions'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { t } from '@/locales'
+import { useStore as useStoreP } from '@/store/storeP.ts'
 
 const appStore = useAppStore()
 const userStore = useUserStore()
+const storeP = useStoreP()
 
 const { isMobile } = useBasicLayout()
 
@@ -211,6 +213,20 @@ function handleImportButtonClick(): void {
             :value="language"
             :options="languageOptions"
             @update-value="value => appStore.setLanguage(value)"
+          />
+        </div>
+      </div>
+      <div class="flex items-center space-x-4">
+        <span class="flex-shrink-0 w-[100px]">模型</span>
+        <div class="flex flex-wrap items-center gap-4">
+          <NSelect
+            style="width: 140px"
+            :value="storeP.model"
+            :options="[
+               { label: '123123', key: 'gpt-3.5-turbo', value: 'gpt-3.5-turbo' },
+               { label: '2222', key: 'gpt-4', value: 'gpt-4' },
+            ]"
+            @update-value="value => storeP.SET_MODEL(value)"
           />
         </div>
       </div>

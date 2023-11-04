@@ -8,6 +8,7 @@ export const useStore = defineStore('main', {
       checkArr: [],
       promptId: "",
       synchronization: [],
+      model: "gpt-3.5-turbo",
     }
   },
   actions: {
@@ -19,6 +20,9 @@ export const useStore = defineStore('main', {
     },
     SET_PROMPT_ID(id: any) { // 修改方法
       this.promptId = id
+    },
+    SET_MODEL(model: any) { // 修改方法
+      this.model = model
     },
   },
   getters: {

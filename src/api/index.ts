@@ -34,6 +34,7 @@ export function fetchChatAPIProcess<T = any>(
     options?: { conversationId?: string; parentMessageId?: string }
     promptId: string,
     checkArr: any,
+    model: any,
     signal?: GenericAbortSignal
     onDownloadProgress?: (progressEvent: AxiosProgressEvent) => void },
 ) {
@@ -49,6 +50,7 @@ export function fetchChatAPIProcess<T = any>(
     options: params.options,
     keywordId: params.promptId,
     ids: ids,
+    model: params.model
   }
 
   if (authStore.isChatGPTAPI) {
