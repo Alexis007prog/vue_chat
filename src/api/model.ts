@@ -2,7 +2,7 @@ import request from '@/utils/request/axios'
 
 
 export function lists() {
-  return request.get('/detail/list', {})
+  return request.get('/smileText/detail/list', {})
 }
 
 export function editLists() {
