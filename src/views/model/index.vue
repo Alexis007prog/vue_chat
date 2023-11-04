@@ -111,7 +111,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
   <el-button class="mt-4" style="width: 100%" @click="dialogVisible = true, resetForm(ruleFormRef)">
     添加模型
   </el-button>
-  <el-table :data="tableData" style="width: 100%" max-height="250"
+  <el-table :data="tableData" style="width: 100%" max-height="100vh"
   :tree-props="{ children: 'children'}"
 >
     <el-table-column fixed prop="createTime" label="时间" />

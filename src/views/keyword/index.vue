@@ -87,7 +87,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
   <el-button class="mt-4" style="width: 100%" @click="dialogVisible = true, resetForm(ruleFormRef)">
     添加关键词
   </el-button>
-  <el-table :data="tableData" style="width: 100%" max-height="250">
+  <el-table :data="tableData" style="width: 100%" max-height="100vh">
     <el-table-column fixed prop="createTime" label="时间" />
     <el-table-column prop="name" label="名称" />
     <el-table-column fixed="right" label="操作">
