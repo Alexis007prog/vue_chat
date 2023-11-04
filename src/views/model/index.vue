@@ -2,7 +2,7 @@
 import { reactive, ref, onMounted } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
 import { ElMessage } from 'element-plus'
-import { del, lists, update, save, findById, ListExpectSelf } from '@/api/model'
+import { del, editLists, update, save, findById, ListExpectSelf } from '@/api/model'
 const dialogVisible = ref(false)
 
 const tableData = ref([])
@@ -13,7 +13,7 @@ onMounted(()=> {
 })
 
 async function getList() {
-    const { data } = await lists()
+    const { data } = await editLists()
     tableData.value = data
     parents.value = data
 }
@@ -64,15 +64,13 @@ const editeRow = (id: String) => {
 }
 
 const resetForm = (formEl: FormInstance | undefined) => {
-  if (!formEl)
-    return
-
+  
     ruleForm.textPice = ""
         ruleForm.name = ""
         ruleForm.id = ""
         ruleForm.indexId = ""
+        console.log(123123)
         getList()
-  formEl.resetFields()
 }
 
 const submitForm = (formEl: FormInstance | undefined) => {

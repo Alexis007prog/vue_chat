@@ -54,12 +54,9 @@ const editeRow = (id: number) => {
 }
 
 const resetForm = (formEl: FormInstance | undefined) => {
-  if (!formEl)
-    return
     ruleForm.textAll = ""
         ruleForm.name = ""
         ruleForm.id = ""
-  formEl.resetFields()
 }
 
 const submitForm = (formEl: FormInstance | undefined) => {

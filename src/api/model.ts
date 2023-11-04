@@ -2,6 +2,10 @@ import request from '@/utils/request/axios'
 
 
 export function lists() {
+  return request.get('/detail/list', {})
+}
+
+export function editLists() {
   return request.get('/smileText/listEdit', {})
 }
 export function save(data) {
