@@ -36,7 +36,7 @@ const ruleForm = reactive<RuleForm>({
   textPice: '',
   id: "",
   indexId: "",
-  level: 1
+  level: 99
 })
 
 const rules = reactive<FormRules<RuleForm>>({
@@ -73,8 +73,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
         ruleForm.name = ""
         ruleForm.id = ""
         ruleForm.indexId = ""
-        ruleForm.level = 1
-        console.log(123123)
+        ruleForm.level = 99
         editLists().then(res=>{
           parents.value = res.data
 
