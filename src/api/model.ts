@@ -18,6 +18,10 @@ export function update(data) {
   return request.post('/smileText/update', data)
 }
 
+export function ListExpectSelf(id) {
+  return request.get('/smileText/listExpectSelf/' + id)
+}
+
 
 // 模型
 //  模型列表  /smileText/listEdit 参数 无

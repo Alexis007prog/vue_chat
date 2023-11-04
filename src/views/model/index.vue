@@ -2,7 +2,7 @@
 import { reactive, ref, onMounted } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
 import { ElMessage } from 'element-plus'
-import { del, lists, update, save, findById } from '@/api/model'
+import { del, lists, update, save, findById, ListExpectSelf } from '@/api/model'
 const dialogVisible = ref(false)
 
 const tableData = ref([])
@@ -50,13 +50,15 @@ const editeRow = (id: String) => {
 //   ruleForm.name = '名称'
 //   ruleForm.textPice = '内容'
 //   console.log(id)
-    findById(id).then(res=>{
+    findById(id).then(async res=>{
         const { data } = res
         ruleForm.textPice = data.textPice
         ruleForm.name = data.name
         ruleForm.id = data.id
         ruleForm.indexId = data.indexId
-        parents.value = data.parents
+
+        let sdata = await ListExpectSelf(id)
+        parents.value = sdata.data
     })
 }
 
