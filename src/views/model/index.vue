@@ -15,6 +15,7 @@ onMounted(()=> {
 async function getList() {
     const { data } = await lists()
     tableData.value = data
+    parents.value = data
 }
 
 const deleteRow = async (index: number, id: String) => {
@@ -70,7 +71,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
         ruleForm.name = ""
         ruleForm.id = ""
         ruleForm.indexId = ""
-        parents.value = tableData.value
+        getList()
   formEl.resetFields()
 }
 
