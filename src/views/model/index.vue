@@ -109,7 +109,9 @@ const submitForm = (formEl: FormInstance | undefined) => {
   <el-button class="mt-4" style="width: 100%" @click="dialogVisible = true, resetForm(ruleFormRef)">
     添加模型
   </el-button>
-  <el-table :data="tableData" style="width: 100%" max-height="250">
+  <el-table :data="tableData" style="width: 100%" max-height="250"
+  :tree-props="{ children: 'children'}"
+>
     <el-table-column fixed prop="createTime" label="时间" />
     <el-table-column prop="name" label="名称" />
     <el-table-column fixed="right" label="操作">
@@ -142,7 +144,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
     <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules" label-width="70px">
       <el-form-item label="上级模型">
         <el-cascader v-model="ruleForm.indexId" placeholder="请选择上级模型"
-         :options="tableData"
+         :options="parents"
          :props="{
             label: 'name',
             value: 'id',
