@@ -72,7 +72,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
   formEl.validate((valid) => {
     if (valid) {
         let api = ruleForm.id? update(ruleForm): save(ruleForm)
-      
+
       api.then(res=>{
         dialogVisible.value = false
         getList()
@@ -111,7 +111,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
           link
           type="primary"
           size="small"
-          @click.prevent="deleteRow(scope.$index)"
+          @click.prevent="deleteRow(scope.$index, scope.row.id)"
         >
           删除
         </el-button>
@@ -119,6 +119,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
     </el-table-column>
   </el-table>
   <el-dialog
+		v-if="dialogVisible"
     v-model="dialogVisible"
     title="编辑"
     width="60%"
