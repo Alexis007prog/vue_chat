@@ -10,7 +10,7 @@ interface Props {
 }
 defineProps<Props>()
 
-import robot from "@/assets/robot.jpg"
+import robot from "@/assets/meSmileIco.jpg"
 
 const userStore = useUserStore()
 
@@ -22,7 +22,7 @@ const avatar = computed(() => userStore.userInfo.avatar)
     <NAvatar v-if="isString(avatar) && avatar.length > 0" :src="avatar" :fallback-src="defaultAvatar" />
     <NAvatar v-else round :src="defaultAvatar" />
   </template>
-  <span v-else class="text-[28px] dark:text-white">
+  <span v-else class="text-[30px] dark:text-white">
     <NAvatar round :src="robot" />
 
     <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" width="1em" height="1em">
