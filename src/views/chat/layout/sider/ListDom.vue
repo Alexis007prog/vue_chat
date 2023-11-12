@@ -1,49 +1,12 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
-import { useStore } from '@/store/storeP.ts'
-import { listByPart } from '@/api/index'
+import { useStore } from '@/store/storeP.js'
+import { listByPart } from '@/api'
 const defaultProps = {
   children: 'children',
   label: 'name',
   disabled: 'disabled',
 }
-geiTree()
-const datas = [
-  {
-    id: 1,
-    label: 'Level one 1',
-    children: [
-      {
-        id: 3,
-        label: 'Level two 2-1',
-        children: [
-          {
-            id: 4,
-            label: 'Level three 3-1-1',
-          },
-          {
-            id: 5,
-            label: 'Level three 3-1-2',
-          },
-        ],
-      },
-      {
-        id: 2,
-        label: 'Level two 2-2',
-        children: [
-          {
-            id: 6,
-            label: 'Level three 3-2-1',
-          },
-          {
-            id: 7,
-            label: 'Level three 3-2-2',
-          },
-        ],
-      },
-    ],
-  },
-]
 
 const dataArr = ref([])
 
@@ -56,7 +19,7 @@ const permListRef = ref(null)
 
 const store = useStore()
 
-function handleCheck(checkedNodes) {
+function handleCheck(checkedNodes: any) {
   leafNodes.value = []
   const permNodes = permListRef.value.getCheckedNodes()
   permNodes.forEach((item) => {
@@ -77,7 +40,7 @@ watch(
   { deep: true },
 )
 </script>
-
+<!--树形结构-->
 <template>
   <div>
     <el-tree
