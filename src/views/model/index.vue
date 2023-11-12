@@ -3,6 +3,7 @@ import { reactive, ref, onMounted } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
 import { ElMessage } from 'element-plus'
 import { del, editLists, lists, update, save, findById, ListExpectSelf } from '@/api/model'
+import { listByPart } from '@/api'
 const dialogVisible = ref(false)
 
 const tableData = ref([])
@@ -13,7 +14,7 @@ onMounted(()=> {
 })
 
 async function getList() {
-    const { data } = await lists()
+    const { data } = await listByPart()
     tableData.value = data
 }
 
@@ -110,12 +111,35 @@ const submitForm = (formEl: FormInstance | undefined) => {
     }
   })
 }
+
+function search(){
+  console.log(12313)
+}
+
+function rest(){
+  console.log(231211)
+  
+}
+
 </script>
 
 <template>
-  <el-button class="mt-4" style="width: 100%" @click="dialogVisible = true, resetForm(ruleFormRef)">
-    添加模型
-  </el-button>
+  <el-form inline :model="query" ref="queryForm" class="demo-form-inline" v-if="showSearch">
+      <el-form-item label="名称">
+          <el-input v-model="query.keyword"></el-input>
+      </el-form-item>
+      <el-form-item>
+          <el-button icon="el-icon-search" type="primary" @click='search()'>搜索</el-button>
+          <el-button @click='rest()'>重置</el-button>
+      </el-form-item>
+  </el-form>
+  <el-row :gutter="10" class="mb8">
+      <el-col :span="1.5">
+          <el-button type="primary" plain size="mini" 
+          @click="dialogVisible = true, resetForm(ruleFormRef)"
+             >添加模型</el-button>
+      </el-col>
+  </el-row>
   <el-table :data="tableData" style="width: 100%" max-height="100vh"
   :tree-props="{ children: 'children'}"
 >

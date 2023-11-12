@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { NModal } from 'naive-ui'
 import type { TreeOption } from 'naive-ui'
 import { indexPromptlist } from '@/api/index'
@@ -22,16 +22,26 @@ const show = computed({
   get: () => props.visible,
   set: (visible: boolean) => emit('update:visible', visible),
 })
-const promptId = ref("")
+const keyword = ref({})
 geiTree()
 async function geiTree() {
   const data = await indexPromptlist()
   checkArr.value = data.data
 }
-function promptClick(id){
-  promptId.value = id
-  store.SET_PROMPT_ID(id)
+function promptClick(data: any){
+  keyword.value = data
+  store.SET_KEYWORD(data)
+  emit('update:visible', false)
 }
+
+watch(
+  () => store.$state.keyword,
+  (newKeyword, oldKeyword) => {
+    // 处理 checkArrReturn 的变化
+    keyword.value = newKeyword
+  },
+  { deep: true },
+)
 
 const pattern = ref('')
 const showIrrelevantNodes = ref(false)
@@ -82,8 +92,8 @@ const checkArr = ref([{
     <el-tag v-for="item in checkArr" 
       :key="item.id" 
       style="margin-left:10px"
-      :effect="item.id == promptId? 'dark': ''"
-      @click="promptClick(item.id)"
+      :effect="item.id == keyword.id? 'dark': 'light'"
+      @click="promptClick(item)"
       >
       {{ item.name }}
     </el-tag>

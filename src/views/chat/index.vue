@@ -111,7 +111,7 @@ async function onConversation() {
         options,
         checkArr: store.$state.checkArr,
         model: store.$state.model,
-        promptId: store.$state.promptId,
+        promptId: store.$state.keyword.id,
         signal: controller.signal,
         onDownloadProgress: ({ event }) => {
           const xhr = event.target
@@ -471,20 +471,47 @@ onUnmounted(() => {
 // 侦听到的数据
 const store = useStore()
 
-const checkArr = ref([])
+const keyword = ref({})
+
+// watch(
+//   () => store.$state.checkArr,
+//   (newCheckArr, oldCheckArr) => {
+//     // 处理 checkArrReturn 的变化
+//     console.log(newCheckArr)
+//     // checkArr.value = newCheckArr
+//   },
+//   { deep: true },
+// )
+
+const checkArr = computed(() => {
+  console.log(store.$state.checkArr)
+  return store.$state.checkArr
+})
 
 watch(
-  () => store.$state.checkArr,
-  (newCheckArr, oldCheckArr) => {
+  () => store.$state.keyword,
+  (newKeyword, oldKeyword) => {
     // 处理 checkArrReturn 的变化
-    checkArr.value = newCheckArr
+    keyword.value = newKeyword
   },
   { deep: true },
 )
-function handleClose(val) {
-  checkArr.value.splice(checkArr.value.findIndex(item => item.id === val.id), 1)
-  store.TEXT_SYNCHR(checkArr.value)
+
+function handleClose(index: number) {
+  let checkArr1 = JSON.parse(JSON.stringify(checkArr.value))
+  console.log(checkArr1[index],12312123123)
+
+  checkArr1.splice(index, 1)
+  
+
+  store.TEXT_SYNCHR(true)
+  store.TEXT_UPDATE(checkArr1)
 }
+
+function handleKeywordClose(val) {
+  store.SET_KEYWORD({})
+}
+
 </script>
 
 <template>
@@ -536,15 +563,25 @@ function handleClose(val) {
     </main>
     <div style="margin-left: 150px;">
       <el-tag
-        v-for="tag in checkArr"
-        :key="tag"
+        v-for="(tag, index) in checkArr"
+        :key="index"
         style="margin-left:10px"
         class="mx-1"
         closable
         :disable-transitions="false"
-        @close="handleClose(tag)"
+        @close="handleClose(index)"
       >
         {{ tag.name }}
+      </el-tag>
+      <el-tag
+        style="margin-left:10px"
+        class="mx-1"
+        closable
+        :disable-transitions="false"
+        @close="handleKeywordClose(keyword)"
+        v-if="keyword.id"
+      >
+        {{ keyword.name }}
       </el-tag>
     </div>
     <footer :class="footerClass">
