@@ -185,14 +185,16 @@ const handleDragEnd = (
     data.indexId = dropNode.data.indexId || dropNode.data.id
     data.type = 0
     data.nextId = 0
-  }else if(dropType == 'after'){
+  }else{
+
     data.indexId = dropNode.data.indexId
     data.nextId = dropNode.data.id
-    data.type = 1
-  }else if(dropType == 'before'){
-    data.indexId = dropNode.data.indexId
-    data.nextId = dropNode.data.id
-    data.type = 0
+    
+    if(dropType == 'after'){
+      data.type = 1
+    }else{
+      data.type = 0
+    }
   }
   
   // console.log(draggingNode.data.id)
