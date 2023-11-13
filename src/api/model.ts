@@ -12,23 +12,28 @@ export function search(params: any) {
 export function editLists() {
   return request.get('/smileText/listEdit', {})
 }
-export function save(data) {
+export function save(data: any) {
   return request.put('/smileText/save', data)
 }
-export function del(id) {
+export function del(id: any) {
   return request.delete('/smileText/delete/' + id)
 }
-export function findById(id) {
+export function findById(id: any) {
   return request.get('/smileText/detail/' + id)
 }
 
-export function update(data) {
+export function update(data: any) {
   return request.post('/smileText/update', data)
 }
 
-export function ListExpectSelf(id) {
+export function ListExpectSelf(id: any) {
   return request.get('/smileText/listExpectSelf/' + id)
 }
+
+export function orderByOperate(data: any) {
+  return request.post('/smileText/orderByOperate', data)
+}
+
 
 
 // 模型

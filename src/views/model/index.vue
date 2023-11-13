@@ -1,9 +1,15 @@
 <script lang="ts" setup>
 import { reactive, ref, onMounted } from 'vue'
-import Sortable from 'sortablejs';
+import type { DragEvents } from 'element-plus/es/components/tree/src/model/useDragNode'
+import type {
+  AllowDropType,
+  NodeDropType,
+} from 'element-plus/es/components/tree/src/tree.type'
 
-import type { FormInstance, FormRules, ElMessage } from 'element-plus'
-import { del, editLists, search as listByPart, update, save, findById, ListExpectSelf } from '@/api/model'
+import type { FormInstance, FormRules } from 'element-plus'
+import { ElMessage } from 'element-plus'
+
+import { del, editLists, search as listByPart, update, save, findById, ListExpectSelf, orderByOperate} from '@/api/model'
 const dialogVisible = ref(false)
 
 const tableData = ref([])
@@ -13,95 +19,38 @@ const query = reactive({
   name: '',
 })
 
+const defaultProps = {
+  children: 'children',
+  label: 'name',
+  disabled: 'disabled',
+}
+
+
 onMounted(()=> {
     getList()
-    rowDrop()
 })
-
-// 表格行拖拽
-const rowDrop = () => {
-  let tbody = document.querySelector(".el-table__body-wrapper tbody");
-  Sortable.create(tbody, {
-    // or { name: "...", pull: [true, false, 'clone', array], put: [true, false, array] }
-    group: {
-      name: "words",
-      pull: true,
-      put: true,
-    },
-    animation: 150, // ms, number 单位：ms，定义排序动画的时间
-    onAdd: function (evt: any) {
-      // 拖拽时候添加有新的节点的时候发生该事件
-      console.log("onAdd.foo:", [evt.item, evt.from]);
-    },
-    onUpdate: function (evt: any) {
-      // 拖拽更新节点位置发生该事件
-      console.log("onUpdate.foo:", [evt.item, evt.from]);
-    },
-    onRemove: function (evt: any) {
-      // 删除拖拽节点的时候促发该事件
-      console.log("onRemove.foo:", [evt.item, evt.from]);
-    },
-    onStart: function (evt: any) {
-      // 开始拖拽出发该函数
-      console.log("onStart.foo:", [evt.item, evt.from]);
-    },
-    onSort: function (evt: any) {
-      // 发生排序发生该事件
-      console.log("onUpdate.foo:", [evt.item, evt.from]);
-    },
-    onEnd(evt: any) {
-      // 结束拖拽
-      console.log("结束表格拖拽", evt);
-      // 如果拖拽结束后顺序发生了变化，则对数据进行修改
-      if (evt.oldIndex !== evt.newIndex) {
-        let currRow = tableData.value.splice(evt.oldIndex, 1)[0];
-        tableData.value.splice(evt.newIndex, 0, currRow);
-        // 将排序后的ID抽离成数组传给后端
-        let optIDs: string[] = [];
-        tableData.value.forEach((item) => {
-          if(item){
-            optIDs.push(item.id);
-          }
-        });
-        console.log(optIDs)
-        // const params = {
-        //   Params: {
-        //     id: currRow.id,
-        //     OptIDs: optIDs,
-        //   },
-        //   Options: {
-        //     APIServer: apiServer,
-        //   },
-        // };
-        // // 发送改变顺序的请求
-        // store.commit("doRequest");
-        // spaceService.OrderOptions(params).then((res: any) => {
-        //   store.commit("deResponse");
-        //   if (res.Status === 0) {
-        //     console.log("表格顺序修改成功");
-        //   } else {
-        //     ElMessage({
-        //       showClose: true,
-        //       message: res.ErrorMessage,
-        //       type: "error",
-        //       duration: 10000,
-        //     });
-        //   }
-        // });
-      }
-    },
-  });
-};
 
 
 async function getList() {
     const { data } = await listByPart(query)
     tableData.value = data
 }
+interface Tree {
+  id: number
+  name: string
+  children?: Tree[]
+}
 
-const deleteRow = async (index: number, id: String) => {
-  await del(id)
-  tableData.value.splice(index, 1)
+const deleteRow = (node: Node, data: Tree) => {
+  
+
+  del(data.id).then(res=>{
+    const parent = node.parent
+    const children: Tree[] = parent.data.children || parent.data
+    const index = children.findIndex((d) => d.id === data.id)
+    children.splice(index, 1)
+    tableData.value = [...tableData.value]
+  })
 }
 
 interface RuleForm {
@@ -202,6 +151,67 @@ function rest(){
   getList()
 }
 
+const handleDragStart = (node: Node, ev: DragEvents) => {
+  // console.log('drag start', node)
+}
+
+const handleDragEnter = (
+  draggingNode: Node,
+  dropNode: Node,
+  ev: DragEvents
+) => {
+  // console.log('tree drag enter:', dropNode.name)
+}
+const handleDragLeave = (
+  draggingNode: Node,
+  dropNode: Node,
+  ev: DragEvents
+) => {
+  // console.log('tree drag leave:', dropNode.name)
+}
+const handleDragOver = (draggingNode: Node, dropNode: Node, ev: DragEvents) => {
+  // console.log('tree drag over:', dropNode.name)
+}
+const handleDragEnd = (
+  draggingNode: Node,
+  dropNode: Node,
+  dropType: NodeDropType,
+  ev: DragEvents
+) => {
+  let data = {
+    id: draggingNode.data.id,
+  }
+  if(dropType == 'inner'){
+    data.indexId = dropNode.data.indexId || dropNode.data.id
+    data.type = 0
+    data.nextId = 0
+  }else if(dropType == 'after'){
+    data.indexId = dropNode.data.indexId
+    data.nextId = dropNode.data.id
+    data.type = 1
+  }else if(dropType == 'before'){
+    data.indexId = dropNode.data.indexId
+    data.nextId = dropNode.data.id
+    data.type = 0
+  }
+  
+  // console.log(draggingNode.data.id)
+  // console.log(dropNode.data)
+  // console.log(dropType)
+  orderByOperate(data).then(res=>{
+    console.log(res)
+  })
+  console.log(data)
+}
+const handleDrop = (
+  draggingNode: Node,
+  dropNode: Node,
+  dropType: NodeDropType,
+  ev: DragEvents
+) => {
+  // console.log('tree drop:', dropNode.name, dropType)
+}
+
 </script>
 
 <template>
@@ -222,35 +232,44 @@ function rest(){
              >添加模型</el-button>
       </el-col>
   </el-row>
-  <el-table :data="tableData" style="width: 100%" max-height="100vh"
-  :tree-props="{ children: 'children'}"
-  row-key="id"
->
-    <el-table-column prop="id" label="ID" />
-    <el-table-column prop="name" label="名称" />
-    <el-table-column fixed prop="createTime" label="时间" />
-
-    <el-table-column fixed="right" label="操作">
-      <template #default="scope">
-        <el-button
-          link
-          type="primary"
-          size="small"
-          @click.prevent="dialogVisible = true, editeRow(scope.row.id)"
-        >
-          修改
-        </el-button>
-        <el-button
-          link
-          type="primary"
-          size="small"
-          @click.prevent="deleteRow(scope.$index, scope.row.id)"
-        >
-          删除
-        </el-button>
-      </template>
-    </el-table-column>
-  </el-table>
+  <el-tree
+    :data="tableData"
+    draggable
+    node-key="id"
+    :props="defaultProps"
+    @node-drag-start="handleDragStart"
+    @node-drag-enter="handleDragEnter"
+    @node-drag-leave="handleDragLeave"
+    @node-drag-over="handleDragOver"
+    @node-drag-end="handleDragEnd"
+    @node-drop="handleDrop"
+  >
+    <template #default="{ node, data }">
+      <span class="custom-tree-node">
+        <span>
+          <!-- {{data.id}} ---  -->
+          {{ data.name }}</span>
+        <span>
+          <el-button
+            link
+            type="primary"
+            size="small"
+            @click.prevent="dialogVisible = true, editeRow(data.id)"
+          >
+            修改
+          </el-button>
+          <el-button
+            link
+            type="primary"
+            size="small"
+            @click.prevent="deleteRow(node, data)"
+          >
+            删除
+          </el-button>
+        </span>
+      </span>
+    </template>
+  </el-tree>
   </div>
   
   <el-dialog
@@ -294,5 +313,13 @@ function rest(){
 <style scoped>
 .el-cascader{
   width: 100% !important;
+}
+.custom-tree-node{
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  padding-right: 8px;
 }
 </style>
