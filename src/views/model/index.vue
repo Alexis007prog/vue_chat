@@ -199,6 +199,13 @@ const handleDragEnd = (
   // console.log(dropNode.data)
   // console.log(dropType)
   orderByOperate(data).then(res=>{
+    ElMessage({
+          message: res? '操作成功': '操作失败',
+          type: res? 'success':'error',
+      })
+    if(!res){
+      getList()
+    }
     console.log(res)
   })
   console.log(data)
@@ -247,7 +254,7 @@ const handleDrop = (
     <template #default="{ node, data }">
       <span class="custom-tree-node">
         <span>
-          <!-- {{data.id}} ---  -->
+          {{data.id}} --- 
           {{ data.name }}</span>
         <span>
           <el-button
