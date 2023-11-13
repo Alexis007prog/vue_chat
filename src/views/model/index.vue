@@ -184,7 +184,7 @@ const handleDragEnd = (
   if(dropType == 'inner'){
     data.indexId = dropNode.data.indexId || dropNode.data.id
     data.type = 0
-    data.nextId = 0
+    data.nextId = ""
   }else{
 
     data.indexId = dropNode.data.indexId
