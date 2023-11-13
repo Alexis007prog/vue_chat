@@ -181,8 +181,9 @@ const handleDragEnd = (
   let data = {
     id: draggingNode.data.id,
   }
+  
   if(dropType == 'inner'){
-    data.indexId = dropNode.data.indexId || dropNode.data.id
+    data.indexId = dropNode.data.id|| dropNode.data.indexId 
     data.type = 0
     data.nextId = ""
   }else{
@@ -197,9 +198,9 @@ const handleDragEnd = (
     }
   }
   
-  // console.log(draggingNode.data.id)
-  // console.log(dropNode.data)
-  // console.log(dropType)
+  console.log(draggingNode.data.id)
+  console.log(dropNode.data)
+  console.log(dropType)
   orderByOperate(data).then(res=>{
     ElMessage({
           message: res? '操作成功': '操作失败',
@@ -208,9 +209,8 @@ const handleDragEnd = (
     if(!res){
       getList()
     }
-    console.log(res)
   })
-  console.log(data)
+  console.log("data", data)
 }
 const handleDrop = (
   draggingNode: Node,
