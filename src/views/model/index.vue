@@ -1,20 +1,101 @@
 <script lang="ts" setup>
 import { reactive, ref, onMounted } from 'vue'
-import type { FormInstance, FormRules } from 'element-plus'
-import { ElMessage } from 'element-plus'
-import { del, editLists, lists, update, save, findById, ListExpectSelf } from '@/api/model'
-import { listByPart } from '@/api'
+import Sortable from 'sortablejs';
+
+import type { FormInstance, FormRules, ElMessage } from 'element-plus'
+import { del, editLists, search as listByPart, update, save, findById, ListExpectSelf } from '@/api/model'
 const dialogVisible = ref(false)
 
 const tableData = ref([])
 const parents = ref([])
 
-onMounted(()=> {
-    getList()
+const query = reactive({
+  name: '',
 })
 
+onMounted(()=> {
+    getList()
+    rowDrop()
+})
+
+// 表格行拖拽
+const rowDrop = () => {
+  let tbody = document.querySelector(".el-table__body-wrapper tbody");
+  Sortable.create(tbody, {
+    // or { name: "...", pull: [true, false, 'clone', array], put: [true, false, array] }
+    group: {
+      name: "words",
+      pull: true,
+      put: true,
+    },
+    animation: 150, // ms, number 单位：ms，定义排序动画的时间
+    onAdd: function (evt: any) {
+      // 拖拽时候添加有新的节点的时候发生该事件
+      console.log("onAdd.foo:", [evt.item, evt.from]);
+    },
+    onUpdate: function (evt: any) {
+      // 拖拽更新节点位置发生该事件
+      console.log("onUpdate.foo:", [evt.item, evt.from]);
+    },
+    onRemove: function (evt: any) {
+      // 删除拖拽节点的时候促发该事件
+      console.log("onRemove.foo:", [evt.item, evt.from]);
+    },
+    onStart: function (evt: any) {
+      // 开始拖拽出发该函数
+      console.log("onStart.foo:", [evt.item, evt.from]);
+    },
+    onSort: function (evt: any) {
+      // 发生排序发生该事件
+      console.log("onUpdate.foo:", [evt.item, evt.from]);
+    },
+    onEnd(evt: any) {
+      // 结束拖拽
+      console.log("结束表格拖拽", evt);
+      // 如果拖拽结束后顺序发生了变化，则对数据进行修改
+      if (evt.oldIndex !== evt.newIndex) {
+        let currRow = tableData.value.splice(evt.oldIndex, 1)[0];
+        tableData.value.splice(evt.newIndex, 0, currRow);
+        // 将排序后的ID抽离成数组传给后端
+        let optIDs: string[] = [];
+        tableData.value.forEach((item) => {
+          if(item){
+            optIDs.push(item.id);
+          }
+        });
+        console.log(optIDs)
+        // const params = {
+        //   Params: {
+        //     id: currRow.id,
+        //     OptIDs: optIDs,
+        //   },
+        //   Options: {
+        //     APIServer: apiServer,
+        //   },
+        // };
+        // // 发送改变顺序的请求
+        // store.commit("doRequest");
+        // spaceService.OrderOptions(params).then((res: any) => {
+        //   store.commit("deResponse");
+        //   if (res.Status === 0) {
+        //     console.log("表格顺序修改成功");
+        //   } else {
+        //     ElMessage({
+        //       showClose: true,
+        //       message: res.ErrorMessage,
+        //       type: "error",
+        //       duration: 10000,
+        //     });
+        //   }
+        // });
+      }
+    },
+  });
+};
+
+
 async function getList() {
-    const { data } = await listByPart()
+    const { data } = await listByPart(query)
     tableData.value = data
 }
 
@@ -113,38 +194,42 @@ const submitForm = (formEl: FormInstance | undefined) => {
 }
 
 function search(){
-  console.log(12313)
+  getList()
 }
 
 function rest(){
-  console.log(231211)
-  
+  query.name = ""
+  getList()
 }
 
 </script>
 
 <template>
-  <el-form inline :model="query" ref="queryForm" class="demo-form-inline" v-if="showSearch">
+  <div class="p-4">
+    <el-form inline :model="query" ref="queryForm" class="demo-form-inline">
       <el-form-item label="名称">
-          <el-input v-model="query.keyword"></el-input>
+          <el-input v-model="query.name"></el-input>
       </el-form-item>
       <el-form-item>
-          <el-button icon="el-icon-search" type="primary" @click='search()'>搜索</el-button>
+          <el-button type="primary" @click='search()'>搜索</el-button>
           <el-button @click='rest()'>重置</el-button>
       </el-form-item>
   </el-form>
   <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
-          <el-button type="primary" plain size="mini" 
+          <el-button type="primary" plain 
           @click="dialogVisible = true, resetForm(ruleFormRef)"
              >添加模型</el-button>
       </el-col>
   </el-row>
   <el-table :data="tableData" style="width: 100%" max-height="100vh"
   :tree-props="{ children: 'children'}"
+  row-key="id"
 >
-    <el-table-column fixed prop="createTime" label="时间" />
+    <el-table-column prop="id" label="ID" />
     <el-table-column prop="name" label="名称" />
+    <el-table-column fixed prop="createTime" label="时间" />
+
     <el-table-column fixed="right" label="操作">
       <template #default="scope">
         <el-button
@@ -166,6 +251,8 @@ function rest(){
       </template>
     </el-table-column>
   </el-table>
+  </div>
+  
   <el-dialog
     v-if="dialogVisible"
     v-model="dialogVisible"

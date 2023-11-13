@@ -499,7 +499,7 @@ watch(
 
 function handleClose(index: number) {
   let checkArr1 = JSON.parse(JSON.stringify(checkArr.value))
-  console.log(checkArr1[index],12312123123)
+  console.log(checkArr1[index], 12312123123)
 
   checkArr1.splice(index, 1)
   

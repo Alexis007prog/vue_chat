@@ -45,7 +45,7 @@ function handleCheckChange(
   )
 {
   if(data.children){
-    console.log(permListRef.value.getCurrentKey(data.id))
+    // console.log(permListRef.value.getCurrentKey(data.id))
     defaultExpandedArr.value = [ data.id ]
   }
   // console.log(data, indeterminate, 99999)
@@ -54,7 +54,7 @@ function handleCheckChange(
   // if(data.children && checked){
   //   delTree(data)
   // }
-  // if(data.hierarchy == 1) return
+  if(data.hierarchy == 1) return
 
   let checkArr: any[] = JSON.parse(JSON.stringify(store.checkArr))
   if(checked){

@@ -5,6 +5,10 @@ export function lists() {
   return request.get('/smileText/detail/list', {})
 }
 
+export function search(params: any) {
+  return request.get('/smileText/search', { params })
+}
+
 export function editLists() {
   return request.get('/smileText/listEdit', {})
 }
