@@ -2,14 +2,12 @@
 import { reactive, ref, onMounted } from 'vue'
 import type { DragEvents } from 'element-plus/es/components/tree/src/model/useDragNode'
 import type {
-  AllowDropType,
   NodeDropType,
 } from 'element-plus/es/components/tree/src/tree.type'
 
 import type { FormInstance, FormRules } from 'element-plus'
 import { ElMessage } from 'element-plus'
 
-import { lists } from '@/api'
 import { del, editLists, search as listByPart, update, save, findById, listExpectSelfOrder, orderByOperate} from '@/api/model'
 const dialogVisible = ref(false)
 
@@ -199,9 +197,9 @@ const handleDragEnd = (
     }
   }
   
-  console.log(draggingNode.data.id)
-  console.log(dropNode.data)
-  console.log(dropType)
+  // console.log(draggingNode.data.id)
+  // console.log(dropNode.data)
+  // console.log(dropType)
   orderByOperate(data).then(res=>{
     ElMessage({
           message: res? '操作成功': '操作失败',
