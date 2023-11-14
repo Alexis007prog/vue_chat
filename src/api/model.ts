@@ -26,8 +26,8 @@ export function update(data: any) {
   return request.post('/smileText/update', data)
 }
 
-export function ListExpectSelf(id: any) {
-  return request.get('/smileText/listExpectSelf/' + id)
+export function listExpectSelfOrder(id: any) {
+  return request.get('/smileText/listExpectSelfOrder/' + id)
 }
 
 export function orderByOperate(data: any) {

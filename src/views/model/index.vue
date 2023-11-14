@@ -9,7 +9,8 @@ import type {
 import type { FormInstance, FormRules } from 'element-plus'
 import { ElMessage } from 'element-plus'
 
-import { del, editLists, search as listByPart, update, save, findById, ListExpectSelf, orderByOperate} from '@/api/model'
+import { lists } from '@/api'
+import { del, editLists, search as listByPart, update, save, findById, listExpectSelfOrder, orderByOperate} from '@/api/model'
 const dialogVisible = ref(false)
 
 const tableData = ref([])
@@ -93,7 +94,7 @@ const editeRow = (id: String) => {
         ruleForm.id = data.id
         ruleForm.indexId = data.indexId
 
-        let sdata = await ListExpectSelf(id)
+        let sdata = await listExpectSelfOrder(id)
         parents.value = sdata.data
     })
 }
@@ -256,7 +257,7 @@ const handleDrop = (
     <template #default="{ node, data }">
       <span class="custom-tree-node">
         <span>
-          {{data.id}} --- 
+          <!-- {{data.id}} ---  -->
           {{ data.name }}</span>
         <span>
           <el-button
