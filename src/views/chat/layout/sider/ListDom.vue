@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue'
 import { useStore } from '@/store/storeP.js'
 import { listByPart } from '@/api'
 const defaultProps = {

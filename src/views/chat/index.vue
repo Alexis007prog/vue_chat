@@ -10,6 +10,7 @@ import { useScroll } from './hooks/useScroll'
 import { useChat } from './hooks/useChat'
 import { useUsingContext } from './hooks/useUsingContext'
 import HeaderComponent from './components/Header/index.vue'
+import { HoverButton, SvgIcon } from '@/components/common'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { useChatStore, usePromptStore } from '@/store'
 import { fetchChatAPIProcess } from '@/api'
@@ -507,7 +508,7 @@ function handleClose(index: number) {
   store.TEXT_UPDATE(checkArr1)
 }
 
-function handleKeywordClose() {
+function handleKeywordClose(val) {
   store.SET_KEYWORD({})
 }
 
@@ -577,7 +578,7 @@ function handleKeywordClose() {
         class="mx-1"
         closable
         :disable-transitions="false"
-        @close="handleKeywordClose"
+        @close="handleKeywordClose(keyword)"
         v-if="keyword.id"
       >
         {{ keyword.name }}
