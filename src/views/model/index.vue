@@ -43,7 +43,7 @@ interface Tree {
 }
 
 const deleteRow = (node: Node, data: Tree) => {
-  
+
 
   del(data.id).then(res=>{
     const parent = node.parent
@@ -100,7 +100,7 @@ const editeRow = (id: String) => {
 }
 
 const resetForm = (formEl: FormInstance | undefined) => {
-  
+
     ruleForm.textPice = ""
         ruleForm.name = ""
         ruleForm.id = ""
@@ -120,13 +120,13 @@ const submitForm = (formEl: FormInstance | undefined) => {
     if (valid) {
       console.log('submit!')
 
-     
+
       if(ruleForm.indexId){
         ruleForm.indexId = ruleForm.indexId[ruleForm.indexId.length - 1]
       }
 
       let api = ruleForm.id? update(ruleForm): save(ruleForm)
-      
+
       api.then(res=>{
         dialogVisible.value = false
         ElMessage({
@@ -182,23 +182,23 @@ const handleDragEnd = (
   let data = {
     id: draggingNode.data.id,
   }
-  
+
   if(dropType == 'inner'){
-    data.indexId = dropNode.data.id|| dropNode.data.indexId 
+    data.indexId = dropNode.data.id|| dropNode.data.indexId
     data.type = 0
     data.nextId = ""
   }else{
 
     data.indexId = dropNode.data.indexId
     data.nextId = dropNode.data.id
-    
+
     if(dropType == 'after'){
       data.type = 1
     }else{
       data.type = 0
     }
   }
-  
+
   console.log(draggingNode.data.id)
   console.log(dropNode.data)
   console.log(dropType)
@@ -237,7 +237,7 @@ const handleDrop = (
   </el-form>
   <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
-          <el-button type="primary" plain 
+          <el-button type="primary" plain
           @click="dialogVisible = true, resetForm(ruleFormRef)"
              >添加模型</el-button>
       </el-col>
@@ -257,7 +257,7 @@ const handleDrop = (
     <template #default="{ node, data }">
       <span class="custom-tree-node">
         <span>
-          {{data.id}} --- 
+<!--          {{data.id}} -&#45;&#45; -->
           {{ data.name }}</span>
         <span>
           <el-button
@@ -281,7 +281,7 @@ const handleDrop = (
     </template>
   </el-tree>
   </div>
-  
+
   <el-dialog
     v-if="dialogVisible"
     v-model="dialogVisible"
@@ -296,7 +296,7 @@ const handleDrop = (
             label: 'name',
             value: 'id',
             checkStrictly: true,
-        }" 
+        }"
         size="large"
         />
       </el-form-item>
