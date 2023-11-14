@@ -257,7 +257,7 @@ const handleDrop = (
     <template #default="{ node, data }">
       <span class="custom-tree-node">
         <span>
-          {{data.id}} --- 
+          <!-- {{data.id}} ---  -->
           {{ data.name }}</span>
         <span>
           <el-button
