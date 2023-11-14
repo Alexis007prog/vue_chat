@@ -121,7 +121,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
       console.log('submit!')
 
 
-      if(ruleForm.indexId){
+      if(ruleForm.indexId instanceof Array){
         ruleForm.indexId = ruleForm.indexId[ruleForm.indexId.length - 1]
       }
 
