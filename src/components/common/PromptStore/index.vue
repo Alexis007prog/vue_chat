@@ -1,6 +1,7 @@
 <script setup lang='ts'>
 import { computed, ref, watch } from 'vue'
 import { NModal } from 'naive-ui'
+import type { TreeOption } from 'naive-ui'
 import { indexPromptlist } from '@/api/index'
 import { useStore } from '@/store/storeP.ts'
 const store = useStore()
@@ -21,8 +22,7 @@ const show = computed({
   get: () => props.visible,
   set: (visible: boolean) => emit('update:visible', visible),
 })
-
-const keyword = ref<any>({})
+const keyword = ref({})
 geiTree()
 async function geiTree() {
   const data = await indexPromptlist()

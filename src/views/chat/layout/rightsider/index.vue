@@ -3,8 +3,10 @@ import type { CSSProperties } from 'vue'
 import { computed, ref, watch } from 'vue'
 import { NButton, NLayoutSider, useDialog } from 'naive-ui'
 import List from './List.vue'
+import Footer from './Footer.vue'
 import { useAppStore, useChatStore } from '@/store'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
+import { PromptStoreRight, SvgIcon } from '@/components/common'
 import { t } from '@/locales'
 // import { reactive } from 'vue'
 
@@ -75,11 +77,11 @@ watch(
 // ref绑定初始值
 let ids = ref([]);
 
-// const menuSelect = function(data:any){
-//   // 通过value传给子组件
-//   ids.value = data;
-//   console.log("子组件传过来值了",ids);
-// }
+const menuSelect = function(data:any){
+  // 通过value传给子组件
+  ids.value = data;
+  console.log("子组件传过来值了",ids);
+}
 </script>
 
 <template>
