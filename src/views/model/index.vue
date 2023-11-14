@@ -93,6 +93,7 @@ const editeRow = (id: String) => {
         ruleForm.name = data.name
         ruleForm.id = data.id
         ruleForm.indexId = data.indexId
+        ruleForm.level = data.level
 
         let sdata = await listExpectSelfOrder(id)
         parents.value = sdata.data
