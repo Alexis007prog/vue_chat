@@ -26,7 +26,8 @@ interface RuleForm {
   apiAddress: string,
   secretKey: string,
   apiKey: string,
-  id: string
+  id: string,
+  note: string
 }
 
 const ruleFormRef = ref<FormInstance>()
@@ -35,7 +36,8 @@ const ruleForm = reactive<RuleForm>({
   apiAddress: '',
   secretKey: "",
   apiKey: "",
-  id: ""
+  id: "",
+  note: ""
 })
 
 const rules = reactive<FormRules<RuleForm>>({
@@ -59,6 +61,8 @@ const editeRow = (id: number) => {
         ruleForm.apiKey = data.apiKey
         ruleForm.secretKey = data.secretKey
         ruleForm.id = data.id
+        ruleForm.note = data.note
+        
     })
 }
 
@@ -68,6 +72,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
         ruleForm.apiKey = ""
         ruleForm.secretKey = ""
         ruleForm.id = ""
+        ruleForm.note = ""
 
 }
 
@@ -141,6 +146,9 @@ const submitForm = (formEl: FormInstance | undefined) => {
       </el-form-item>
       <el-form-item label="secretKey" prop="secretKey">
         <el-input v-model="ruleForm.secretKey"  />
+      </el-form-item>
+      <el-form-item label="备注" prop="note">
+        <el-input v-model="ruleForm.note" rows="10" type="textarea" />
       </el-form-item>
     </el-form>
     <template #footer>
