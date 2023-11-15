@@ -7,7 +7,7 @@ import type {
 } from 'element-plus/es/components/tree/src/tree.type'
 
 import type { FormInstance, FormRules } from 'element-plus'
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElMessageBox } from 'element-plus'
 
 import { lists } from '@/api'
 import { del, editLists, search as listByPart, update, save, findById, listExpectSelfOrder, orderByOperate} from '@/api/model'
@@ -149,8 +149,23 @@ function search(){
 }
 
 function rest(){
-  query.name = ""
-  getList()
+  ElMessageBox.confirm(
+    '确定重置吗?',
+    '提示',
+    {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning',
+    }
+  )
+    .then(() => {
+      query.name = ""
+      getList()
+    })
+    .catch(() => {
+      
+    })
+  
 }
 
 const handleDragStart = (node: Node, ev: DragEvents) => {
