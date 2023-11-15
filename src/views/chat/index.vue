@@ -111,6 +111,7 @@ async function onConversation() {
         options,
         checkArr: store.$state.checkArr,
         model: store.$state.model,
+        configId: store.$state.configId,
         promptId: store.$state.keyword.id,
         signal: controller.signal,
         onDownloadProgress: ({ event }) => {
@@ -245,6 +246,7 @@ async function onRegenerate(index: number) {
         promptId: store.$state.promptId,
         checkArr: store.$state.checkArr,
         model: store.$state.model,
+        configId: store.$state.configId,
         options,
         signal: controller.signal,
         onDownloadProgress: ({ event }) => {

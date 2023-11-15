@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { NButton, NInput, NPopconfirm, NSelect, useMessage } from 'naive-ui'
 import type { Language, Theme } from '@/store/modules/app/helper'
 import { SvgIcon } from '@/components/common'
@@ -9,6 +9,7 @@ import { getCurrentDate } from '@/utils/functions'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { t } from '@/locales'
 import { useStore as useStoreP } from '@/store/storeP.ts'
+import { lists as configList } from '@/api/config'
 
 const appStore = useAppStore()
 const userStore = useUserStore()
@@ -25,6 +26,8 @@ const userInfo = computed(() => userStore.userInfo)
 const avatar = ref(userInfo.value.avatar ?? '')
 
 const name = ref(userInfo.value.name ?? '')
+
+const config = ref([])
 
 const description = ref(userInfo.value.description ?? '')
 
@@ -122,6 +125,16 @@ function handleImportButtonClick(): void {
   if (fileInput)
     fileInput.click()
 }
+
+onMounted(() => {
+  getConfig()
+})
+function getConfig(){
+  configList().then(res=>{
+    config.value = res.data
+  })
+}
+
 </script>
 
 <template>
@@ -227,6 +240,19 @@ function handleImportButtonClick(): void {
                { label: '2222', key: 'gpt-4', value: 'gpt-4' },
             ]"
             @update-value="value => storeP.SET_MODEL(value)"
+          />
+        </div>
+      </div>
+      <div class="flex items-center space-x-4">
+        <span class="flex-shrink-0 w-[100px]">API</span>
+        <div class="flex flex-wrap items-center gap-4">
+          <NSelect
+            style="width: 140px"
+            :value="storeP.configId"
+            label-field="name"
+            value-field="id"
+            :options="config"
+            @update-value="value => storeP.SET_CONFIG_ID(value)"
           />
         </div>
       </div>
