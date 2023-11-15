@@ -7,6 +7,7 @@ export const useStore = defineStore('main', {
     return {
       checkArr: [],
       keyword: {},
+      configId: "",
       synchronization: false,
       model: "gpt-3.5-turbo",
     }
@@ -23,6 +24,9 @@ export const useStore = defineStore('main', {
     },
     SET_MODEL(model: any) { // 修改方法
       this.model = model
+    },
+    SET_CONFIG_ID(id: string) { // 修改方法
+      this.configId = id
     },
   },
   getters: {

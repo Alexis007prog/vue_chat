@@ -16,6 +16,11 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/views/keyword/index.vue'),
   },
   {
+    path: '/config',
+    name: 'Config',
+    component: () => import('@/views/config/index.vue'),
+  },
+  {
     path: '/',
     name: 'Root',
     component: ChatLayout,
