@@ -9,16 +9,25 @@ const routes: RouteRecordRaw[] = [
     path: '/model',
     name: 'Model',
     component: () => import('@/views/model/index.vue'),
+    meta:{
+      title: '模型'
+    }
   },
   {
     path: '/keyword',
     name: 'Keyword',
     component: () => import('@/views/keyword/index.vue'),
+    meta:{
+      title: '关键词'
+    }
   },
   {
     path: '/config',
     name: 'Config',
     component: () => import('@/views/config/index.vue'),
+    meta:{
+      title: '配置'
+    }
   },
   {
     path: '/',

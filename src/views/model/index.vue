@@ -241,6 +241,8 @@ const handleDrop = (
 </script>
 
 <template>
+  <h2 style="font-size: 30px; font-weight: bold; text-align: center;">模型</h2>
+
   <div class="p-4">
     <el-form inline :model="query" ref="queryForm" class="demo-form-inline">
       <el-form-item label="名称">
@@ -249,6 +251,11 @@ const handleDrop = (
       <el-form-item>
           <el-button type="primary" @click='search()'>搜索</el-button>
           <el-button @click='rest()'>重置</el-button>
+      </el-form-item>
+
+      <el-form-item>
+        <el-button @click='$router.push("keyword")'>关键词</el-button>
+        <el-button @click='$router.push("config")'>配置</el-button>
       </el-form-item>
   </el-form>
   <el-row :gutter="10" class="mb8">

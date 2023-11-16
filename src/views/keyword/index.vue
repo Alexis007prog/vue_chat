@@ -91,12 +91,24 @@ const submitForm = (formEl: FormInstance | undefined) => {
 </script>
 
 <template>
-  <el-button class="mt-4" style="width: 100%" @click="dialogVisible = true, resetForm(ruleFormRef)">
-    添加关键词
-  </el-button>
+  <h2 style="font-size: 30px; font-weight: bold; text-align: center;">关键词</h2>
+  <div class="p-4">
+    <el-form inline  ref="queryForm" class="demo-form-inline">
+        <el-form-item>
+          <el-button  type="primary" @click="dialogVisible = true, resetForm(ruleFormRef)">
+            添加关键词
+          </el-button>
+        </el-form-item>
+        <el-form-item>
+          <el-button @click='$router.push("model")'>模型</el-button>
+          <el-button @click='$router.push("config")'>配置</el-button>
+        </el-form-item>
+    </el-form>
+  
   <el-table :data="tableData" style="width: 100%" max-height="100vh">
-    <el-table-column fixed prop="createTime" label="时间" />
     <el-table-column prop="name" label="名称" />
+    <el-table-column fixed="right" prop="createTime" label="时间" />
+
     <el-table-column fixed="right" label="操作">
       <template #default="scope">
         <el-button
@@ -118,6 +130,8 @@ const submitForm = (formEl: FormInstance | undefined) => {
       </template>
     </el-table-column>
   </el-table>
+</div>
+
   <el-dialog
 		v-if="dialogVisible"
     v-model="dialogVisible"
