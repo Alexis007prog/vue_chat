@@ -131,8 +131,8 @@ const submitForm = (formEl: FormInstance | undefined) => {
       api.then(res=>{
         dialogVisible.value = false
         ElMessage({
-            message: res? '操作成功': '操作失败',
-            type: res? 'success':'error',
+            message: res.data? '操作成功': '操作失败',
+            type: res.data? 'success':'error',
         })
         getList()
       })
@@ -220,10 +220,10 @@ const handleDragEnd = (
   console.log(dropType)
   orderByOperate(data).then(res=>{
     ElMessage({
-          message: res? '操作成功': '操作失败',
-          type: res? 'success':'error',
+          message: res.data? '操作成功': '操作失败',
+          type: res.data? 'success':'error',
       })
-    if(!res){
+    if(!res.data){
       getList()
     }
   })
