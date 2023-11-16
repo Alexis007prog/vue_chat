@@ -77,8 +77,8 @@ const submitForm = (formEl: FormInstance | undefined) => {
         dialogVisible.value = false
         getList()
         ElMessage({
-            message: res? '操作成功': '操作失败',
-            type: res? 'success':'error',
+            message: res.data? '操作成功': '操作失败',
+            type: res.data? 'success':'error',
         })
       })
     }
