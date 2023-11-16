@@ -107,7 +107,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
   
   <el-table :data="tableData" style="width: 100%" max-height="100vh">
     <el-table-column prop="name" label="名称" />
-    <el-table-column fixed prop="createTime" label="时间" />
+    <el-table-column fixed="right" prop="createTime" label="时间" />
 
     <el-table-column fixed="right" label="操作">
       <template #default="scope">
