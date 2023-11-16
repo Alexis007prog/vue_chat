@@ -104,11 +104,11 @@ const submitForm = (formEl: FormInstance | undefined) => {
           <el-button @click='$router.push("config")'>配置</el-button>
         </el-form-item>
     </el-form>
-  </div>
   
   <el-table :data="tableData" style="width: 100%" max-height="100vh">
-    <el-table-column fixed prop="createTime" label="时间" />
     <el-table-column prop="name" label="名称" />
+    <el-table-column fixed prop="createTime" label="时间" />
+
     <el-table-column fixed="right" label="操作">
       <template #default="scope">
         <el-button
@@ -130,6 +130,8 @@ const submitForm = (formEl: FormInstance | undefined) => {
       </template>
     </el-table-column>
   </el-table>
+</div>
+
   <el-dialog
 		v-if="dialogVisible"
     v-model="dialogVisible"
