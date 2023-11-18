@@ -10,8 +10,8 @@ function setupPlugins(env: ImportMetaEnv): PluginOption[] {
     env.VITE_GLOB_APP_PWA === 'true' && VitePWA({
       injectRegister: 'auto',
       manifest: {
-        name: 'chatGPT',
-        short_name: 'chatGPT',
+        name: 'meSmileAI',
+        short_name: 'meSmileAI',
         icons: [
           { src: 'pwa-192x192.png', sizes: '192x192', type: 'image/png' },
           { src: 'pwa-512x512.png', sizes: '512x512', type: 'image/png' },
@@ -25,6 +25,7 @@ export default defineConfig((env) => {
   const viteEnv = loadEnv(env.mode, process.cwd()) as unknown as ImportMetaEnv
 
   return {
+		base: "./",
     resolve: {
       alias: {
         '@': path.resolve(process.cwd(), 'src'),
@@ -39,7 +40,7 @@ export default defineConfig((env) => {
         '/api': {
           target: viteEnv.VITE_APP_API_BASE_URL,
           changeOrigin: true, // 允许跨域
-          rewrite: path => path.replace('/api/', '/'),
+          rewrite: path => path.replace('/api/', ''),
         },
       },
     },

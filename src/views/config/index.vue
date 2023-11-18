@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { reactive, ref, onMounted } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
-import { ElMessage } from 'element-plus'
+import {ElMessage, ElMessageBox} from 'element-plus'
 import { del, lists, save, update, findById } from '@/api/config'
 const dialogVisible = ref(false)
 
@@ -17,8 +17,22 @@ async function getList() {
 }
 
 const deleteRow = async (index: number, id: String) => {
-  await del(id)
-  tableData.value.splice(index, 1)
+	ElMessageBox.confirm(
+		'确定重置吗?',
+		'提示',
+		{
+			confirmButtonText: '确定',
+			cancelButtonText: '取消',
+			type: 'warning',
+		}
+	)
+		.then(async () => {
+			await del(id)
+			tableData.value.splice(index, 1)
+		})
+		.catch(() => {
+		})
+
 }
 
 interface RuleForm {
@@ -62,7 +76,7 @@ const editeRow = (id: number) => {
         ruleForm.secretKey = data.secretKey
         ruleForm.id = data.id
         ruleForm.note = data.note
-        
+
     })
 }
 

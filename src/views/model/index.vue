@@ -41,17 +41,28 @@ interface Tree {
   name: string
   children?: Tree[]
 }
-
+//删除操作
 const deleteRow = (node: Node, data: Tree) => {
-
-
-  del(data.id).then(res=>{
-    const parent = node.parent
-    const children: Tree[] = parent.data.children || parent.data
-    const index = children.findIndex((d) => d.id === data.id)
-    children.splice(index, 1)
-    tableData.value = [...tableData.value]
-  })
+	ElMessageBox.confirm(
+		'确定删除吗?',
+		'提示',
+		{
+			confirmButtonText: '确定',
+			cancelButtonText: '取消',
+			type: 'warning',
+		}
+	)
+		.then(() => {
+			del(data.id).then(res=>{
+				const parent = node.parent
+				const children: Tree[] = parent.data.children || parent.data
+				const index = children.findIndex((d) => d.id === data.id)
+				children.splice(index, 1)
+				tableData.value = [...tableData.value]
+			})
+		})
+		.catch(() => {
+		})
 }
 
 interface RuleForm {
@@ -99,7 +110,7 @@ const editeRow = (id: String) => {
         parents.value = sdata.data
     })
 }
-
+// 修改操作
 const resetForm = (formEl: FormInstance | undefined) => {
 
     ruleForm.textPice = ""
@@ -113,15 +124,13 @@ const resetForm = (formEl: FormInstance | undefined) => {
         })
 
 }
-
+// 新增操作
 const submitForm = (formEl: FormInstance | undefined) => {
   if (!formEl)
     return
   formEl.validate((valid) => {
     if (valid) {
       console.log('submit!')
-
-
       if(ruleForm.indexId instanceof Array){
         ruleForm.indexId = ruleForm.indexId[ruleForm.indexId.length - 1]
       }
@@ -163,10 +172,9 @@ function rest(){
       getList()
     })
     .catch(() => {
-      
     })
-  
 }
+
 
 const handleDragStart = (node: Node, ev: DragEvents) => {
   // console.log('drag start', node)
@@ -215,9 +223,9 @@ const handleDragEnd = (
     }
   }
 
-  console.log(draggingNode.data.id)
-  console.log(dropNode.data)
-  console.log(dropType)
+  // console.log(draggingNode.data.id)
+  // console.log(dropNode.data)
+  // console.log(dropType)
   orderByOperate(data).then(res=>{
     ElMessage({
           message: res.data? '操作成功': '操作失败',

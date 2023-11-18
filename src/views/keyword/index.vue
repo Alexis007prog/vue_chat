@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { reactive, ref, onMounted } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
-import { ElMessage } from 'element-plus'
+import {ElMessage, ElMessageBox} from 'element-plus'
 import { del, lists, save, update, findById } from '@/api/keyword'
 const dialogVisible = ref(false)
 
@@ -17,8 +17,21 @@ async function getList() {
 }
 
 const deleteRow = async (index: number, id: String) => {
-  await del(id)
-  tableData.value.splice(index, 1)
+	ElMessageBox.confirm(
+		'确定删除吗?',
+		'提示',
+		{
+			confirmButtonText: '确定',
+			cancelButtonText: '取消',
+			type: 'warning',
+		}
+	)
+		.then(async () => {
+			await del(id)
+			tableData.value.splice(index, 1)
+		})
+		.catch(() => {
+		})
 }
 
 interface RuleForm {
@@ -104,7 +117,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
           <el-button @click='$router.push("config")'>配置</el-button>
         </el-form-item>
     </el-form>
-  
+
   <el-table :data="tableData" style="width: 100%" max-height="100vh">
     <el-table-column prop="name" label="名称" />
     <el-table-column fixed="right" prop="createTime" label="时间" />
