@@ -15,52 +15,6 @@ const showIrrelevantNodes = ref(false)
 //     message.info('[onUpdate:value]: ' + JSON.stringify(key))
 //     message.info('[onUpdate:value]: ' + JSON.stringify(item))
 // }
-const menuOptions: TreeOption[] = [
-  {
-    label: '0',
-    key: '0',
-    children: [
-      {
-        label: '0-0',
-        key: '0-0',
-        children: [
-          { label: '0-0-0', key: '0-0-0' },
-          { label: '0-0-1', key: '0-0-1' },
-        ],
-      },
-      {
-        label: '0-1',
-        key: '0-1',
-        children: [
-          { label: '0-1-0', key: '0-1-0' },
-          { label: '0-1-1', key: '0-1-1' },
-        ],
-      },
-    ],
-  },
-  {
-    label: '1',
-    key: '1',
-    children: [
-      {
-        label: '1-0',
-        key: '1-0',
-        children: [
-          { label: '1-0-0', key: '1-0-0' },
-          { label: '1-0-1', key: '1-0-1' },
-        ],
-      },
-      {
-        label: '1-1',
-        key: '1-1',
-        children: [
-          { label: '1-1-0', key: '1-1-0' },
-          { label: '1-1-1', key: '1-1-1' },
-        ],
-      },
-    ],
-  },
-]
 
 const temp = ref([] as any[])
 // let result = null;
@@ -76,20 +30,6 @@ function getTreeItem(data: any, key: any) {
     }
   })
 }
-watch(
-  () => [...props.ids],
-  (newValue, oldValue) => {
-    temp.value = []
-    newValue.forEach((nItem: any, nIndex: number) => {
-      getTreeItem(menuOptions, nItem)
-    })
-    console.log('赋值完', temp.value)
-  },
-  {
-    immediate: true,
-    deep: true,
-  },
-)
 
 const selectChange = function () {
   console.log('选中菜单变了')
