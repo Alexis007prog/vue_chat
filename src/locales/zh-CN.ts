@@ -30,7 +30,7 @@ export default {
   },
   chat: {
     newChatButton: '新建聊天',
-    placeholder: '我是MeSmile_AI，请提问吧……(模型指令+模型名称)',
+    placeholder: '请输入内容',
     placeholderMobile: '来说点什么...',
     copy: '复制',
     copied: '复制成功',

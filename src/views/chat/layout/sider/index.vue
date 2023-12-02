@@ -1,13 +1,11 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import type { CSSProperties } from 'vue'
 import { computed, ref, watch } from 'vue'
-import { NButton, NLayoutSider, useDialog } from 'naive-ui'
-import List from './List.vue'
+import { NLayoutSider, useDialog } from 'naive-ui'
 import ListDom from './ListDom.vue'
-import Footer from './Footer.vue'
 import { useAppStore, useChatStore } from '@/store'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
-import { PromptStore, SvgIcon } from '@/components/common'
+import { PromptStore } from '@/components/common'
 import { t } from '@/locales'
 // import { reactive } from 'vue'
 
@@ -50,6 +48,7 @@ const getMobileClass = computed<CSSProperties>(() => {
     return {
       position: 'fixed',
       zIndex: 50,
+      backgroundColor: '#00000000',
     }
   }
   return {}
@@ -76,48 +75,43 @@ watch(
 )
 
 // ref绑定初始值
-let ids = ref([]);
+const ids = ref([])
 
-const menuSelect = function(data:any){
+const menuSelect = function (data: any) {
   // 通过value传给子组件
-  ids.value = data;
-  console.log("子组件传过来值了",ids);
+  ids.value = data
+  console.log('子组件传过来值了', ids)
 }
 </script>
 
 <template>
-
   <NLayoutSider
     :collapsed="collapsed"
     :collapsed-width="0"
-    :width="260"
+    :width="329"
     :show-trigger="isMobile ? false : 'arrow-circle'"
     collapse-mode="transform"
     position="absolute"
-    bordered
     :style="getMobileClass"
     @update-collapsed="handleUpdateCollapsed"
   >
     <div class="flex flex-col h-full" :style="mobileSafeArea">
-
-  <ListDom></ListDom>
-      <main class="flex flex-col flex-1 min-h-0">
-        <div class="flex items-center p-4 space-x-4">
-          <div class="flex-1">
-            <NButton block @click="show = true">
-              {{ $t('store.siderButton') }}
-            </NButton>
-          </div>
-          <NButton @click="handleClearAll">
-            <SvgIcon icon="ri:close-circle-line" />
-          </NButton>
-        </div>
-      </main>
-      <Footer />
+      <ListDom />
     </div>
   </NLayoutSider>
   <template v-if="isMobile">
-    <div v-show="!collapsed" class="fixed inset-0 z-40 w-full h-full bg-black/40" @click="handleUpdateCollapsed" />
+    <div
+      v-show="!collapsed"
+      class="fixed inset-0 z-40 w-full h-full bg-black/40"
+      @click="handleUpdateCollapsed"
+    />
   </template>
-  <PromptStore v-model:visible="show" @menuSelect="menuSelect"/>
+  <PromptStore v-model:visible="show" @menuSelect="menuSelect" />
 </template>
+
+<style lang="less" scoped>
+.n-layout-sider{
+  border-radius: 20px !important;
+  background-color: #ffffff !important;
+}
+</style>
