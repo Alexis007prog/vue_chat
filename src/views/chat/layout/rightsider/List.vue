@@ -1,4 +1,4 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import { computed } from 'vue'
 import { NInput, NPopconfirm, NScrollbar } from 'naive-ui'
 import { SvgIcon } from '@/components/common'
@@ -51,50 +51,61 @@ function isActive(uuid: number) {
 </script>
 
 <template>
-  <NScrollbar class="px-4">
-    <div class="flex flex-col gap-2 text-sm">
+  <NScrollbar class="px-10">
+    <div class="flex flex-col gap-4 text-sm">
       <template v-if="!dataSources.length">
         <div class="flex flex-col items-center mt-4 text-center text-neutral-300">
           <SvgIcon icon="ri:inbox-line" class="mb-2 text-3xl" />
-          <span>{{ $t('common.noData') }}</span>
+          <span>{{ $t("common.noData") }}</span>
         </div>
       </template>
       <template v-else>
         <div v-for="(item, index) of dataSources" :key="index">
           <a
-            class="relative flex items-center gap-3 px-3 py-3 break-all border rounded-md cursor-pointer hover:bg-neutral-100 group dark:border-neutral-800 dark:hover:bg-[#24272e]"
-            :class="isActive(item.uuid) && ['border-[#4b9e5f]', 'bg-neutral-100', 'text-[#4b9e5f]', 'dark:bg-[#24272e]', 'dark:border-[#4b9e5f]', 'pr-14']"
+            class="relative flex items-center gap-4 px-6 break-all cursor-pointer item"
+            :class="isActive(item.uuid) && ['active']"
             @click="handleSelect(item)"
           >
-            <span>
-              <SvgIcon icon="ri:message-3-line" />
-            </span>
-            <div class="relative flex-1 overflow-hidden break-all text-ellipsis whitespace-nowrap">
+            <div
+              class="relative flex-1 overflow-hidden break-all text-ellipsis whitespace-nowrap"
+            >
               <NInput
                 v-if="item.isEdit"
-                v-model:value="item.title" size="tiny"
+                v-model:value="item.title"
+                size="tiny"
                 @keypress="handleEnter(item, false, $event)"
               />
-              <span v-else>{{ item.title }}</span>
+              <span v-else class="title">{{ item.title }}</span>
             </div>
-            <div v-if="isActive(item.uuid)" class="absolute z-10 flex visible right-1">
+            <div v-if="isActive(item.uuid)" class="absolute z-10 flex visible right-6">
               <template v-if="item.isEdit">
                 <button class="p-1" @click="handleEdit(item, false, $event)">
-                  <SvgIcon icon="ri:save-line" />
+                  <SvgIcon icon="ri:save-line" :style="{ fontSize: '23px' }" />
                 </button>
               </template>
               <template v-else>
-                <button class="p-1">
-                  <SvgIcon icon="ri:edit-line" @click="handleEdit(item, true, $event)" />
-                </button>
-                <NPopconfirm placement="bottom" @positive-click="handleDeleteDebounce(index, $event)">
+                <NPopconfirm
+                  placement="bottom"
+                  @positive-click="handleDeleteDebounce(index, $event)"
+                >
                   <template #trigger>
                     <button class="p-1">
-                      <SvgIcon icon="ri:delete-bin-line" />
+                      <img
+                        src="@/assets/19.png"
+                        alt=""
+                        @click="handleEdit(item, true, $event)"
+                      >
                     </button>
                   </template>
-                  {{ $t('chat.deleteHistoryConfirm') }}
+                  {{ $t("chat.deleteHistoryConfirm") }}
                 </NPopconfirm>
+                <button class="p-1 ml-2">
+                  <img
+                    src="@/assets/18.png"
+                    alt=""
+                    @click="handleEdit(item, true, $event)"
+                  >
+                </button>
               </template>
             </div>
           </a>
@@ -103,3 +114,31 @@ function isActive(uuid: number) {
     </div>
   </NScrollbar>
 </template>
+
+<style lang="less" scoped>
+::v-deep .n-input {
+  height: 40px;
+  background-color: #00000000;
+  input {
+    height: 40px;
+  }
+}
+img {
+  width: 23px;
+  height: 23px;
+  cursor: pointer;
+}
+.item {
+  height: 68px;
+  border-radius: 15px;
+  background-color: #e8effc;
+  border: 2px solid #e8effc;
+  &.active {
+    border: 2px solid #96b0f3;
+  }
+}
+.title {
+  font-size: 15px;
+  font-weight: 500;
+}
+</style>

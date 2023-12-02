@@ -10,6 +10,7 @@ const { language } = useLanguage()
 
 <template>
   <NConfigProvider
+    style="background-color: #F5F6FA"
     class="h-full"
     :theme="theme"
     :theme-overrides="themeOverrides"

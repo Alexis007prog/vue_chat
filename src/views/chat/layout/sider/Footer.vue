@@ -1,24 +1,39 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import { defineAsyncComponent, ref } from 'vue'
-import { HoverButton, SvgIcon, UserAvatar } from '@/components/common'
+import { UserAvatar } from '@/components/common'
 
-const Setting = defineAsyncComponent(() => import('@/components/common/Setting/index.vue'))
+const Setting = defineAsyncComponent(
+  () => import('@/components/common/Setting/index.vue'),
+)
 
 const show = ref(false)
 </script>
 
 <template>
-  <footer class="flex items-center justify-between min-w-0 p-4 overflow-hidden border-t dark:border-neutral-800">
+  <footer
+    class="flex items-center justify-between min-w-0 overflow-hidden dark:border-neutral-800"
+  >
     <div class="flex-1 flex-shrink-0 overflow-hidden">
-      <UserAvatar />
+      <UserAvatar>
+        <template #setting>
+          <img src="@/assets/1.png" alt="" class="setting" @click="show = true">
+        </template>
+      </UserAvatar>
     </div>
-
-    <HoverButton @click="show = true">
-      <span class="text-xl text-[#4f555e] dark:text-white">
-        <SvgIcon icon="ri:settings-4-line" />
-      </span>
-    </HoverButton>
 
     <Setting v-if="show" v-model:visible="show" />
   </footer>
 </template>
+
+<style lang="less" scoped>
+footer{
+  position: absolute;
+  bottom: 7vh;
+  padding: 10px 60px 0 20px;
+}
+.setting {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+</style>
