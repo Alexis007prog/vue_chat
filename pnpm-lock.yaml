@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@element-plus/icons-vue':
+    specifier: ^2.1.0
+    version: registry.npmmirror.com/@element-plus/icons-vue@2.1.0(vue@3.2.47)
   '@traptitech/markdown-it-katex':
     specifier: ^3.6.0
     version: 3.6.0
@@ -41,6 +44,9 @@ dependencies:
   vue-router:
     specifier: ^4.1.6
     version: 4.1.6(vue@3.2.47)
+  vuedraggable:
+    specifier: ^2.24.3
+    version: registry.npmmirror.com/vuedraggable@2.24.3
 
 devDependencies:
   '@antfu/eslint-config':
@@ -8146,6 +8152,12 @@ packages:
       object-inspect: registry.npmmirror.com/object-inspect@1.12.3
     dev: true
 
+  registry.npmmirror.com/sortablejs@1.10.2:
+    resolution: {integrity: sha512-YkPGufevysvfwn5rfdlGyrGjt7/CRHwvRPogD/lC+TnvcN29jDpCifKP+rBqf+LRldfXSTh+0CGLcSg0VIxq3A==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/sortablejs/-/sortablejs-1.10.2.tgz}
+    name: sortablejs
+    version: 1.10.2
+    dev: false
+
   registry.npmmirror.com/source-map-support@0.5.21:
     resolution: {integrity: sha512-uBHU3L3czsIyYXKX88fdrGovxdSCoTGDRZ6SYXtSRxLZUzHg5P/66Ht6uoUlHu9EZod+inXhKo3qQgwXUT/y1w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/source-map-support/-/source-map-support-0.5.21.tgz}
     name: source-map-support
@@ -8422,6 +8434,14 @@ packages:
         optional: true
     dependencies:
       vue: 3.2.47
+    dev: false
+
+  registry.npmmirror.com/vuedraggable@2.24.3:
+    resolution: {integrity: sha512-6/HDXi92GzB+Hcs9fC6PAAozK1RLt1ewPTLjK0anTYguXLAeySDmcnqE8IC0xa7shvSzRjQXq3/+dsZ7ETGF3g==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vuedraggable/-/vuedraggable-2.24.3.tgz}
+    name: vuedraggable
+    version: 2.24.3
+    dependencies:
+      sortablejs: registry.npmmirror.com/sortablejs@1.10.2
     dev: false
 
   registry.npmmirror.com/webidl-conversions@4.0.2:
