@@ -7,6 +7,7 @@ import { useAppStore, useChatStore } from '@/store'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { PromptStore } from '@/components/common'
 import { t } from '@/locales'
+import { tr } from 'element-plus/es/locale'
 // import { reactive } from 'vue'
 
 const appStore = useAppStore()
@@ -82,6 +83,11 @@ const menuSelect = function (data: any) {
   ids.value = data
   console.log('子组件传过来值了', ids)
 }
+
+function showClick(){
+  show.value = true
+  console.log(123123)
+}
 </script>
 
 <template>
@@ -96,7 +102,7 @@ const menuSelect = function (data: any) {
     @update-collapsed="handleUpdateCollapsed"
   >
     <div class="flex flex-col h-full" :style="mobileSafeArea">
-      <ListDom />
+      <ListDom @showClick="showClick"/>
     </div>
   </NLayoutSider>
   <template v-if="isMobile">

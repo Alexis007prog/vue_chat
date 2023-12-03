@@ -38,7 +38,7 @@ export default defineConfig((env) => {
       open: false,
       proxy: {
         '/api': {
-          target: 'http://2hf58x.natappfree.cc',
+          target: viteEnv.VITE_APP_API_BASE_URL,
           changeOrigin: true, // 允许跨域
           rewrite: path => path.replace('/api/', ''),
         },

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, watch } from 'vue'
+import { ref, watch, defineEmits } from 'vue'
 import { useDialog } from 'naive-ui'
 import Footer from './Footer.vue'
 import { useStore } from '@/store/storeP.js'
@@ -34,7 +34,6 @@ const defaultProps = {
   label: 'name',
   disabled: 'disabled',
 }
-const show = ref(false)
 
 const dataArr = ref([])
 const defaultExpandedArr = ref([])
@@ -96,6 +95,13 @@ function handleCheckChange(data: Tree, checked: boolean, indeterminate: boolean)
   store.TEXT_UPDATE(checkArr)
 }
 
+const emits = defineEmits<{
+    (e: 'showClick', show: Boolean): void
+}>()
+function showClick(){
+  emits('showClick', true)
+}
+
 // onMounted(() => {
 //   permListRef.value.setCheckedNodes()
 // })
@@ -135,7 +141,7 @@ watch(
       @check-change="handleCheckChange"
     />
     <div class="bottom">
-      <main class="flex flex-col flex-1 min-h-0 siderButton" @click="show = true">
+      <main class="flex flex-col flex-1 min-h-0 siderButton" @click="showClick">
         <div>
           <div class="mr-4 ml-3">
             {{ $t("store.siderButton") }}
