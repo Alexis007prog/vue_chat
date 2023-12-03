@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import type { CSSProperties } from 'vue'
 import { computed, ref, watch } from 'vue'
-import { NLayoutSider, useDialog } from 'naive-ui'
+import { useDialog } from 'naive-ui'
 import ListDom from './ListDom.vue'
 import { useAppStore, useChatStore } from '@/store'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { PromptStore } from '@/components/common'
 import { t } from '@/locales'
-import { tr } from 'element-plus/es/locale'
 // import { reactive } from 'vue'
 
 const appStore = useAppStore()
@@ -83,15 +82,13 @@ const menuSelect = function (data: any) {
   ids.value = data
   console.log('子组件传过来值了', ids)
 }
-
-function showClick(){
+const showClick = () => {
   show.value = true
-  console.log(123123)
 }
 </script>
 
 <template>
-  <NLayoutSider
+  <!-- <NLayoutSider
     :collapsed="collapsed"
     :collapsed-width="0"
     :width="329"
@@ -100,11 +97,11 @@ function showClick(){
     position="absolute"
     :style="getMobileClass"
     @update-collapsed="handleUpdateCollapsed"
-  >
-    <div class="flex flex-col h-full" :style="mobileSafeArea">
-      <ListDom @showClick="showClick"/>
-    </div>
-  </NLayoutSider>
+  > -->
+  <div class="flex flex-col h-full sider" :style="mobileSafeArea">
+    <ListDom @showClick="showClick" />
+  </div>
+  <!-- </NLayoutSider> -->
   <template v-if="isMobile">
     <div
       v-show="!collapsed"
@@ -116,7 +113,7 @@ function showClick(){
 </template>
 
 <style lang="less" scoped>
-.n-layout-sider{
+.sider {
   border-radius: 20px !important;
   background-color: #ffffff !important;
 }

@@ -75,7 +75,7 @@ export default {
     monthlyUsage: '本月使用量',
   },
   store: {
-    siderButton: 'MeSmile-AI Plus',
+    siderButton: 'MeSmile_AI模型指令',
     local: '本地',
     online: '在线',
     title: '标题',

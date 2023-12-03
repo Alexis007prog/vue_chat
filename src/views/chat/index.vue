@@ -486,7 +486,6 @@ watch(
 
 function handleClose(index: number) {
   const checkArr1 = JSON.parse(JSON.stringify(checkArr.value))
-  console.log(checkArr1[index], 12312123123)
 
   checkArr1.splice(index, 1)
 
@@ -558,29 +557,6 @@ function handleKeywordClose(val) {
         </div>
       </div>
     </main>
-    <div style="margin-left: 150px">
-      <el-tag
-        v-for="(tag, index) in checkArr"
-        :key="index"
-        style="margin-left: 10px"
-        class="mx-1"
-        closable
-        :disable-transitions="false"
-        @close="handleClose(index)"
-      >
-        {{ tag.name }}
-      </el-tag>
-      <el-tag
-        v-if="keyword.id"
-        style="margin-left: 10px"
-        class="mx-1"
-        closable
-        :disable-transitions="false"
-        @close="handleKeywordClose(keyword)"
-      >
-        {{ keyword.name }}
-      </el-tag>
-    </div>
     <footer v-if="!isMobile" :class="footerClass" class="footer-box">
       <div v-if="loading" class="sticky bottom-0 left-0 flex justify-center mb-5">
         <NButton type="warning" @click="handleStop">
@@ -589,6 +565,29 @@ function handleKeywordClose(val) {
           </template>
           {{ t("common.stopResponding") }}
         </NButton>
+      </div>
+      <div style="margin-bottom: 10px">
+        <el-tag
+          v-for="(tag, index) in checkArr"
+          :key="index"
+          style="margin-left: 10px"
+          class="mx-1"
+          closable
+          :disable-transitions="false"
+          @close="handleClose(index)"
+        >
+          {{ tag.name }}
+        </el-tag>
+        <el-tag
+          v-if="keyword.id"
+          style="margin-left: 10px"
+          class="mx-1"
+          closable
+          :disable-transitions="false"
+          @close="handleKeywordClose(keyword)"
+        >
+          {{ keyword.name }}
+        </el-tag>
       </div>
       <div class="w-full max-w-screen-xl m-auto footer">
         <HoverButton v-if="!isMobile" class="mr-2" @click="handleClear">
@@ -630,6 +629,29 @@ function handleKeywordClose(val) {
       </div>
     </footer>
     <footer v-else :class="footerClass">
+      <div style="margin-left: 150px">
+        <el-tag
+          v-for="(tag, index) in checkArr"
+          :key="index"
+          style="margin-left: 10px"
+          class="mx-1"
+          closable
+          :disable-transitions="false"
+          @close="handleClose(index)"
+        >
+          {{ tag.name }}
+        </el-tag>
+        <el-tag
+          v-if="keyword.id"
+          style="margin-left: 10px"
+          class="mx-1"
+          closable
+          :disable-transitions="false"
+          @close="handleKeywordClose(keyword)"
+        >
+          {{ keyword.name }}
+        </el-tag>
+      </div>
       <div class="w-full max-w-screen-xl m-auto">
         <div class="flex items-center justify-between space-x-2">
           <HoverButton v-if="!isMobile" @click="handleClear">
@@ -643,11 +665,18 @@ function handleKeywordClose(val) {
             </span>
           </HoverButton>
           <HoverButton @click="toggleUsingContext">
-            <span class="text-xl" :class="{ 'text-[#4b9e5f]': usingContext, 'text-[#a8071a]': !usingContext }">
+            <span
+              class="text-xl"
+              :class="{ 'text-[#4b9e5f]': usingContext, 'text-[#a8071a]': !usingContext }"
+            >
               <SvgIcon icon="ri:chat-history-line" />
             </span>
           </HoverButton>
-          <NAutoComplete v-model:value="prompt" :options="searchOptions" :render-label="renderOption">
+          <NAutoComplete
+            v-model:value="prompt"
+            :options="searchOptions"
+            :render-label="renderOption"
+          >
             <template #default="{ handleInput, handleBlur, handleFocus }">
               <NInput
                 ref="inputRef"
@@ -708,6 +737,12 @@ function handleKeywordClose(val) {
     margin-left: 11px;
   }
 }
+::v-deep .n-input__placeholder {
+  color: rgba(194, 194, 194, 1) !important;
+}
+::v-deep textarea {
+  color: rgb(51, 54, 57) !important;
+}
 .icon {
   width: 28px;
   height: 28px;
@@ -747,6 +782,7 @@ function handleKeywordClose(val) {
   margin-top: 15px;
   width: 72px;
   height: 67px;
+  cursor: pointer;
   &.disabled {
     opacity: 0.5;
   }

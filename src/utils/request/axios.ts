@@ -2,8 +2,7 @@ import axios, { type AxiosResponse } from 'axios'
 import { useAuthStore } from '@/store'
 
 const service = axios.create({
-	// baseURL: "http://localhost:3002/",
-	baseURL: import.meta.env.VITE_GLOB_API_URL,
+  baseURL: import.meta.env.VITE_GLOB_API_URL,
 })
 
 service.interceptors.request.use(

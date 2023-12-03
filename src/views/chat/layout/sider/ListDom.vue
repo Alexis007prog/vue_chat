@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, watch, defineEmits } from 'vue'
+import { defineEmits, ref, watch } from 'vue'
 import { useDialog } from 'naive-ui'
 import Footer from './Footer.vue'
 import { useStore } from '@/store/storeP.js'
@@ -7,12 +7,17 @@ import { listByPart } from '@/api'
 import { t } from '@/locales'
 import { useAppStore, useChatStore } from '@/store'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
-import SvgIcon from '@/components/common/SvgIcon/index.vue'
+interface Emit {
+  (e: 'showClick', show: Boolean): void
+}
+const emits = defineEmits<Emit>()
+const showClick = () => {
+  emits('showClick', true)
+}
 // import { reactive } from 'vue'
 
 const appStore = useAppStore()
 const chatStore = useChatStore()
-
 const dialog = useDialog()
 const { isMobile } = useBasicLayout()
 
@@ -95,13 +100,6 @@ function handleCheckChange(data: Tree, checked: boolean, indeterminate: boolean)
   store.TEXT_UPDATE(checkArr)
 }
 
-const emits = defineEmits<{
-    (e: 'showClick', show: Boolean): void
-}>()
-function showClick(){
-  emits('showClick', true)
-}
-
 // onMounted(() => {
 //   permListRef.value.setCheckedNodes()
 // })
@@ -146,7 +144,7 @@ watch(
           <div class="mr-4 ml-3">
             {{ $t("store.siderButton") }}
           </div>
-          <SvgIcon icon="ep:circle-close-filled" :style="{ fontSize: '30px' }" />
+          <!-- <SvgIcon icon="ep:circle-close-filled" :style="{ fontSize: '30px' }" /> -->
         </div>
       </main>
       <Footer />
@@ -156,13 +154,16 @@ watch(
 
 <style scoped lang="less">
 .left-dom {
-  position: relative;
+  background-color: #ffffff;
+  position: absolute;
+  right: 0;
   height: 100%;
   display: flex;
   flex-flow: column;
   justify-content: space-between;
   border-radius: 20px;
   overflow: hidden;
+  width: 329px;
   .header {
     background-image: linear-gradient(
         to bottom,
@@ -183,7 +184,7 @@ watch(
   }
   .el-tree {
     position: absolute;
-    height: 53vh;
+    height: calc(100% - 35vh - 90px);
     overflow: hidden;
     overflow-y: scroll;
     background-color: #00000000;
@@ -205,6 +206,7 @@ watch(
     background-size: 100% 100%;
     height: 600px;
     width: 100%;
+    cursor: pointer;
     // z-index: 999;
     .siderButton {
       position: absolute;
