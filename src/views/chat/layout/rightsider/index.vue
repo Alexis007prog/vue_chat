@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { CSSProperties } from 'vue'
 import { computed, ref, watch } from 'vue'
-import { NLayoutSider, useDialog } from 'naive-ui'
+import { useDialog } from 'naive-ui'
 import List from './List.vue'
 import { useAppStore, useChatStore } from '@/store'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
@@ -83,7 +83,7 @@ const menuSelect = function (data: any) {
 </script>
 
 <template>
-  <NLayoutSider
+  <!-- <NLayoutSider
     :collapsed="collapsed"
     :collapsed-width="0"
     :width="394"
@@ -93,7 +93,8 @@ const menuSelect = function (data: any) {
     :style="getMobileClass"
     :show-trigger="false"
     @update-collapsed="handleUpdateCollapsed"
-  >
+  > -->
+  <div class="right-item" style="width: 394px">
     <div class="flex flex-col h-full" :style="mobileSafeArea">
       <main class="flex flex-col flex-1 min-h-0">
         <div class="p-4 mb-2">
@@ -113,14 +114,21 @@ const menuSelect = function (data: any) {
         </div>
       </main>
     </div>
-  </NLayoutSider>
+    <!-- </NLayoutSider> -->
+  </div>
   <!-- <PromptStoreRight v-model:visible="show" /> -->
 </template>
 
 <style lang="less" scoped>
-::v-deep .n-layout-sider-scroll-container {
-  background-image: url(@/assets/13.png);
-  background-size: 100% 100%;
+.right-item {
+  position: absolute;
+  left: 0;
+  padding: 15px 0;
+  height: 100%;
+  & > div {
+    background-image: url(@/assets/13.png);
+    background-size: 100% 100%;
+  }
 }
 .add-btn {
   display: flex;

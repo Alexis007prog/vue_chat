@@ -30,8 +30,8 @@ function handleEdit({ uuid }: Chat.History, isEdit: boolean, event?: MouseEvent)
   chatStore.updateHistory(uuid, { isEdit })
 }
 
-function handleDelete(index: number, event?: MouseEvent | TouchEvent) {
-  event?.stopPropagation()
+function handleDelete(index: number) {
+  // event?.stopPropagation()
   chatStore.deleteHistory(index)
   if (isMobile.value)
     appStore.setSiderCollapsed(true)
@@ -103,7 +103,7 @@ function isActive(uuid: number) {
                   <img
                     src="@/assets/18.png"
                     alt=""
-                    @click="handleEdit(item, true, $event)"
+                    @click="handleDelete(item)"
                   >
                 </button>
               </template>

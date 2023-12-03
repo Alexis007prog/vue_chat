@@ -99,7 +99,7 @@ async function handleCopy() {
     :class="[{ 'flex-row-reverse': inversion }]"
   >
     <div
-      class="flex items-center justify-center"
+      class="flex justify-center"
       :class="[inversion ? 'ml-2' : 'mr-2']"
     >
       <AvatarComponent :image="inversion" />

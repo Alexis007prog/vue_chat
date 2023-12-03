@@ -12,7 +12,7 @@ const userInfo = computed(() => userStore.userInfo)
 
 <template>
   <div class="box">
-    <div class="flex items-center overflow-hidden">
+    <div class="flex overflow-hidden">
       <div class="w-10 h-10 overflow-hidden rounded-full shrink-0">
         <template v-if="isString(userInfo.avatar) && userInfo.avatar.length > 0">
           <NAvatar
