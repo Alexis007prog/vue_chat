@@ -566,7 +566,7 @@ function handleKeywordClose(val) {
           {{ t("common.stopResponding") }}
         </NButton>
       </div>
-      <div style="margin-bottom: 10px">
+      <div style="margin-bottom: 10px" class="max-w-screen-xl m-auto">
         <el-tag
           v-for="(tag, index) in checkArr"
           :key="index"

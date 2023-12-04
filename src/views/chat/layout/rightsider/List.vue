@@ -103,7 +103,7 @@ function isActive(uuid: number) {
                   <img
                     src="@/assets/18.png"
                     alt=""
-                    @click="handleDelete(item)"
+                    @click="handleDelete(index)"
                   >
                 </button>
               </template>
@@ -140,5 +140,8 @@ img {
 .title {
   font-size: 15px;
   font-weight: 500;
+}
+::v-deep input {
+  color: rgb(51, 54, 57) !important;
 }
 </style>
