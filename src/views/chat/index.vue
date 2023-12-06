@@ -527,9 +527,11 @@ function handleKeywordClose(val) {
         <div id="scrollRef" ref="scrollRef" class="overflow-hidden overflow-y-auto">
           <div
             id="image-wrapper"
-            class="w-full max-w-screen-xl m-auto dark:bg-[#101014]"
+            class="w-full m-auto dark:bg-[#101014]"
             :class="[isMobile ? 'p-2' : 'p-4']"
           >
+<!--						屏幕不随折叠扩大时-->
+						<!--            class="w-full max-w-screen-xl m-auto dark:bg-[#101014]"-->
             <template v-if="!dataSources.length">
               <div
                 class="flex items-center justify-center mt-4 text-center text-neutral-300"
