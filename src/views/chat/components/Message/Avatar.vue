@@ -18,7 +18,7 @@ const avatar = computed(() => userStore.userInfo.avatar)
 </script>
 
 <template>
-  <div class="rounded-full overflow-hidden" style="width:34px;height:34px;">
+  <div class="rounded-full overflow-hidden" style="width:36px;height:36px;">
     <template v-if="image">
       <NAvatar
         v-if="isString(avatar) && avatar.length > 0"
