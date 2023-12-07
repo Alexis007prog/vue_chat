@@ -75,7 +75,11 @@ function isActive(uuid: number) {
                 size="tiny"
                 @keypress="handleEnter(item, false, $event)"
               />
-              <span v-else class="title">{{ item.title }}</span>
+              <span v-else style="    display: inline-block;
+    width: 65%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;" class="title">{{ item.title }}</span>
             </div>
             <div v-if="isActive(item.uuid)" class="absolute z-10 flex visible right-6">
               <template v-if="item.isEdit">
